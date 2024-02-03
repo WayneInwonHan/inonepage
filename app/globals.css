@@ -21,7 +21,11 @@
 @layer base {
   @layer base {
     :root {
+<<<<<<< HEAD
+      --background: 0 0% 0%;
+=======
       --background: 0 0% 100%;
+>>>>>>> 9b46047 (set up initial layout)
       --foreground: 224 71.4% 4.1%;
       --card: 0 0% 100%;
       --card-foreground: 224 71.4% 4.1%;
