@@ -1,0 +1,6 @@
+/* Initial state with full opacity */
+.bg-initial {
+  background-color: #fcfbf4;
+  opacity: 1;
+  transition: 0.5s ease;
+}

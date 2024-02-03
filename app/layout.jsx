@@ -4,6 +4,7 @@ import { Bungee } from "@next/font/google";
 
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import Background from "@/components/Background";
 import { ThemeProvider } from "@/components/ThemeProvider";
 
 const sora = Sora({
@@ -30,6 +31,7 @@ export default function RootLayout({ children }) {
         classNameX={`page bg-site bg-cover bg-no-repeat ${sora.variable} font-bungee relative`}
       >
         <ThemeProvider attribute="class" defaultTheme="light">
+          <Background />
           <Header />
           {children}
           <Footer />
