@@ -21,7 +21,7 @@
 @layer base {
   @layer base {
     :root {
-      --background: 0 0% 100%;
+      --background: 0 0% 0%;
       --foreground: 224 71.4% 4.1%;
       --card: 0 0% 100%;
       --card-foreground: 224 71.4% 4.1%;
@@ -98,4 +98,3 @@
     @apply w-full h-[180px] p-6 capitalize rounded-lg resize-none;
   }
 }
-
