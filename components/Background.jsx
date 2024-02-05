@@ -3,7 +3,7 @@ import "./Background.css";
 
 const Background = () => {
   return (
-    <div className="absolute inset-0 w-full h-full flex flex-wrap bg-black">
+    <div className="absolute z-[-1] p-1 inset-0 w-full h-full flex flex-wrap bg-black">
       <div className="w-1/2 h-full flex flex-col">
         <div className="h-3/6 flex flex-row">
           <div className="w-1/2 bg-initial hover:bg-red-500 m-2 rounded-lg"></div>

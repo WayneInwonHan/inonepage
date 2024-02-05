@@ -1,40 +1,59 @@
 "use client";
-import React, { useState, useEffect } from "react";
 
+import React from "react";
+import { usePathname } from "next/navigation";
 import Logo from "./Logo";
 import ThemeToggler from "./ThemeToggler";
-<<<<<<< HEAD
 import Socials from "./Socials";
-=======
-<<<<<<< HEAD
-import Socials from "./Socials";
-=======
->>>>>>> 9b46047 (set up initial layout)
->>>>>>> refs/remotes/origin/main
+import PageTitle from "./PageTitle";
 
 const Header = () => {
+  const pathname = usePathname();
+  let title, subtitle;
+
+  switch (pathname) {
+    case "/":
+      subtitle = "INONEPAGE.";
+      title = "INWON HAN";
+      break;
+    case "/about":
+      subtitle = "A Little About Me";
+      title = "EXPERIENCE";
+      break;
+    case "/work":
+      subtitle = "Recent Works";
+      title = "SHOWCASE";
+      break;
+    case "/blog":
+      subtitle = "Multiple";
+      title = "PERSPECTIVES";
+      break;
+    case "/doodle":
+      subtitle = "Scribble Space";
+      title = "DOODLES";
+      break;
+    default:
+      subtitle = "INONEPAGE.";
+      title = "INWON HAN";
+  }
+
+  const titleStyle = "text-[7rem] font-bold p-0 text-white leading-none";
+  const subtitleStyle =
+    "text-[4rem] font-bold p-0 text-white leading-none ml-[3px]";
+
   return (
     <header>
-<<<<<<< HEAD
-      <div className="absolute w-full h-52 bg-black z-100 mt-12">
-        <div className="flex justify-between items-center">
+      <div className="w-full h-[165px] bg-black z-50 mt-12">
+        <div className="flex h-full justify-between items-center">
+          <PageTitle
+            title={title}
+            subtitle={subtitle}
+            titleStyle={titleStyle}
+            subtitleStyle={subtitleStyle}
+          />
           <Logo />
-          <div className="w-full flex justify-end items-center gap-x-6">
+          <div className="w-1/2 flex justify-end items-center gap-3 pr-10 z-50">
             <Socials />
-=======
-<<<<<<< HEAD
-      <div className="absolute w-full h-52 bg-black z-100 mt-12">
-        <div className="flex justify-between items-center">
-          <Logo />
-          <div className="w-full flex justify-end items-center gap-x-6">
-            <Socials />
-=======
-      <div className="container mx-auto">
-        <div className="flex justify-between items-center">
-          <Logo />
-          <div className="flex items-center gap-x-6">
->>>>>>> 9b46047 (set up initial layout)
->>>>>>> refs/remotes/origin/main
             <ThemeToggler />
           </div>
         </div>

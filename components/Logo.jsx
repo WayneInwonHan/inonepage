@@ -1,16 +1,15 @@
 import React from "react";
+import "./Logo.css";
 import Image from "next/image";
 
 const Logo = () => {
-<<<<<<< HEAD
-  return <div className="absolute w-full flex justify-center">LOGO</div>;
-=======
-<<<<<<< HEAD
-  return <div className="absolute w-full flex justify-center">LOGO</div>;
-=======
-  return <div>LOGO</div>;
->>>>>>> 9b46047 (set up initial layout)
->>>>>>> refs/remotes/origin/main
+  return (
+    <div className="absolute logo w-full flex justify-center">
+      <div className="eye">
+        <div className="eyeball"></div>
+      </div>
+    </div>
+  );
 };
 
 export default Logo;

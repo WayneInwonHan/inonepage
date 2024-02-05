@@ -1,15 +1,34 @@
+"use client";
+
 import React from "react";
 
-export const Socials = () => {
-  return <div>Socials</div>;
+import { FaGithub, FaLinkedin } from "react-icons/fa";
+
+import Link from "next/link";
+
+const icons = [
+  {
+    path: "https://github.com/WayneInwonHan",
+    name: <FaGithub size="2rem" />,
+  },
+  {
+    path: "https://www.linkedin.com/in/wayne-inwon-han",
+    name: <FaLinkedin size="2rem" />,
+  },
+];
+
+const Socials = ({ iconsStyles }) => {
+  return (
+    <div className="flex gap-3">
+      {icons.map((icon, index) => {
+        return (
+          <Link href={icon.path} key={index}>
+            <div className={`${iconsStyles}`}>{icon.name}</div>
+          </Link>
+        );
+      })}
+    </div>
+  );
 };
-<<<<<<< HEAD
 
 export default Socials;
-=======
-<<<<<<< HEAD
-
-export default Socials;
-=======
->>>>>>> 9b46047 (set up initial layout)
->>>>>>> refs/remotes/origin/main

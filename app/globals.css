@@ -21,11 +21,7 @@
 @layer base {
   @layer base {
     :root {
-<<<<<<< HEAD
-      --background: 0 0% 0%;
-=======
       --background: 0 0% 100%;
->>>>>>> 9b46047 (set up initial layout)
       --foreground: 224 71.4% 4.1%;
       --card: 0 0% 100%;
       --card-foreground: 224 71.4% 4.1%;
@@ -100,5 +96,20 @@
   }
   .textarea {
     @apply w-full h-[180px] p-6 capitalize rounded-lg resize-none;
+  }
+  main {
+    @apply m-6 h-[calc(100vh-260px)];
+  }
+  .page-window {
+    @apply flex flex-col h-full w-full bg-[#fcfbf4] border-[2px] border-black rounded-sm transition-all duration-300 ease-in-out relative;
+  }
+  .page-window:hover {
+    @apply -translate-x-1 -translate-y-1 shadow-lg;
+  }
+  .page-window-bar {
+    @apply bg-black text-white h-8 pl-2;
+  }
+  .page-window-content {
+    @apply text-primary relative;
   }
 }

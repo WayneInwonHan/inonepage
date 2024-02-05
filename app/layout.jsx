@@ -2,16 +2,10 @@ import "./globals.css";
 import { Sora } from "@next/font/google";
 import { Bungee } from "@next/font/google";
 
+import Nav from "@/components/Nav";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
-<<<<<<< HEAD
 import Background from "@/components/Background";
-=======
-<<<<<<< HEAD
-import Background from "@/components/Background";
-=======
->>>>>>> 9b46047 (set up initial layout)
->>>>>>> refs/remotes/origin/main
 import { ThemeProvider } from "@/components/ThemeProvider";
 
 const sora = Sora({
@@ -34,18 +28,10 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body
-        classNameX={`page bg-site bg-cover bg-no-repeat ${sora.variable} font-bungee relative`}
-      >
+      <body className={`page ${sora.variable} font-bungee`}>
         <ThemeProvider attribute="class" defaultTheme="light">
-<<<<<<< HEAD
           <Background />
-=======
-<<<<<<< HEAD
-          <Background />
-=======
->>>>>>> 9b46047 (set up initial layout)
->>>>>>> refs/remotes/origin/main
+          <Nav />
           <Header />
           {children}
           <Footer />

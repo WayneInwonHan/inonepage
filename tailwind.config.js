@@ -81,8 +81,14 @@ module.exports = {
         poppins: [`var(--font-poppins)`, "sans-serif"],
         sora: [`var(--font-sora)`, "sans-serif"],
       },
+      translate: {
+        1: "0.25rem",
+        "-1": "-0.25rem",
+      },
+      boxShadow: {
+        lg: "0 15px 15px -3px rgba(0, 0, 0, 1), 0 4px 6px -4px rgba(0, 0, 0, 1)",
+      },
     },
   },
   plugins: [require("tailwindcss-animate")],
 };
-
