@@ -37,13 +37,14 @@ const Header = () => {
       title = "INWON HAN";
   }
 
-  const titleStyle = "text-[7rem] font-bold p-0 text-white leading-none";
+  const titleStyle =
+    "text-[7rem] font-bold p-0 text-white leading-none text-shadow-border";
   const subtitleStyle =
-    "text-[4rem] font-bold p-0 text-white leading-none ml-[3px]";
+    "text-[4rem] font-bold p-0 text-white leading-none ml-[3px] text-shadow-border";
 
   return (
     <header>
-      <div className="w-full h-[165px] bg-black z-50 mt-12">
+      <div className="w-full h-[135px] bg-black z-50 mt-12">
         <div className="flex h-full justify-between items-center">
           <PageTitle
             title={title}

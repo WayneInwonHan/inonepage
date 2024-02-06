@@ -12,17 +12,35 @@ import { FaGhost, FaEnvelope } from "react-icons/fa";
 import { motion } from "framer-motion";
 
 import { fadeIn } from "../variants";
+import RecentProjectCard from "@/components/RecentProjectCard";
+import LatestPostCard from "@/components/LatestPostCard";
+
+import VoxelAvatarLoader from "../components/AvatarLoader";
+import dynamic from "next/dynamic";
+
+const VoxelAvatar = dynamic(() => import("../components/Avatar"), {
+  ssr: false,
+  loading: () => <VoxelAvatarLoader />,
+});
 
 export default function Home() {
   return (
     <div className="w-full h-full gap-6 flex flex-row">
       <div className="w-1/2 h-full gap-6 flex flex-col">
         <div className="page-window">
-          <div className="page-window-bar">Hello || Annyeong</div>
+          <div className="page-window-bar">
+            <div>Hello || Annyeong</div>
+            <div className="page-window-bar-buttons">
+              <div className="page-window-bar-button"></div>
+              <div className="page-window-bar-button"></div>
+            </div>
+          </div>
           <div className="page-window-content p-5">
             <div>
               I am a{" "}
-              <span className="font-bold underline">digital craftsman</span>{" "}
+              <span className="font-bold underline">
+                digital craftsman / full-stack developer
+              </span>{" "}
               eager to create and design digital solutions that address
               real-world problems. As a creator with a penchant for the
               technical, I am optimistic that my unique talents will benefit
@@ -41,31 +59,73 @@ export default function Home() {
               </Button>
             </div>
           </div>
-          <div className="absolute text-gray-300 text-bold text-7xl right-0 bottom-0">
+          <div className="absolute text-gray-200 text-bold text-6xl right-0 bottom-0">
             HELLO
           </div>
         </div>
         <div className="w-fill h-full gap-6 flex flex-row">
-          <div className="page-window">
-            <div className="page-window-bar">Doodles</div>
-            <div className="page-window-content">
-              <DoodleCard />
+          <div className="w-full h-full gap-6 flex flex-col">
+            <div className="page-window h-3/4">
+              <div className="page-window-bar">
+                <div>Doodles</div>
+                <div className="page-window-bar-buttons">
+                  <div className="page-window-bar-button"></div>
+                  <div className="page-window-bar-button"></div>
+                </div>
+              </div>
+              <div className="page-window-content">
+                <DoodleCard />
+              </div>
+            </div>
+            <div className="page-window h-1/4">
+              <div className="page-window-bar">
+                <div>Latest Post</div>
+                <div className="page-window-bar-buttons">
+                  <div className="page-window-bar-button"></div>
+                  <div className="page-window-bar-button"></div>
+                </div>
+              </div>
+              <div className="page-window-content">
+                <LatestPostCard />
+              </div>
             </div>
           </div>
           <div className="page-window">
-            <div className="page-window-bar">Recent Projects</div>
+            <div className="page-window-bar">
+              <div>Recent Projects</div>
+              <div className="page-window-bar-buttons">
+                <div className="page-window-bar-button"></div>
+                <div className="page-window-bar-button"></div>
+              </div>
+            </div>
             <div className="page-window-content">
-              <ProjectCard />
+              <RecentProjectCard />
             </div>
           </div>
         </div>
       </div>
-      <div className="w-1/2 h-full flex">
+      <div className="w-1/2 h-full flex relative">
         <div className="page-window">
-          <div className="page-window-bar">!BOT.(NOTBOT.)</div>
-          <div className="page-window-content">
-            <Avatar />
+          <div className="page-window-bar">
+            <div>!BOT.(NOTBOT.)</div>
+            <div className="page-window-bar-buttons">
+              <div className="page-window-bar-button"></div>
+              <div className="page-window-bar-button"></div>
+            </div>
           </div>
+          <div className="page-window-content relative">
+            <VoxelAvatar />
+          </div>
+        </div>
+        <div className="page-window absolute bottom-12 right-12 w-[165px] h-[165px] z-10">
+          <div className="page-window-bar">
+            <div>Mini Game</div>
+            <div className="page-window-bar-buttons">
+              <div className="page-window-bar-button"></div>
+              <div className="page-window-bar-button"></div>
+            </div>
+          </div>
+          <div className="page-window-content"></div>
         </div>
       </div>
     </div>
