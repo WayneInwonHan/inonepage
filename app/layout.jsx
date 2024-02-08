@@ -1,6 +1,6 @@
 import "./globals.css";
-import { Sora } from "@next/font/google";
-import { Bungee } from "@next/font/google";
+import { Sora } from "next/font/google";
+import { Bungee } from "next/font/google";
 
 import Nav from "@/components/Nav";
 import Header from "@/components/Header";
