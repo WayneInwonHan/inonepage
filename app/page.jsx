@@ -1,6 +1,8 @@
 "use client";
 
 import Avatar from "@/components/Avatar";
+import AvatarBackground from "@/components/AvatarBackground";
+import AvatarText from "@/components/AvatarText";
 import DoodleCard from "@/components/DoodleCard";
 import ProjectCard from "@/components/ProjectCard";
 
@@ -113,8 +115,10 @@ export default function Home() {
               <div className="page-window-bar-button"></div>
             </div>
           </div>
-          <div className="page-window-content relative">
-            <VoxelAvatar />
+          <div className="page-window-content relative overflow-hidden">
+            <AvatarBackground className="absolute" />
+            <AvatarText className="absolute" />
+            <VoxelAvatar className="absolute" />
           </div>
         </div>
         <div className="page-window absolute bottom-12 right-12 w-[165px] h-[165px] z-10">
