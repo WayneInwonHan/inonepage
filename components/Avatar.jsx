@@ -64,7 +64,7 @@ const VoxelAvatar = () => {
       camera.position.copy(initialCameraPosition);
       camera.lookAt(target);
 
-      const ambientLight = new THREE.AmbientLight(0xcccccc, 4.5);
+      const ambientLight = new THREE.AmbientLight(0xcccccc, 4);
       ambientLight.position.set(500, 500, 500);
       scene.add(ambientLight);
 
@@ -105,9 +105,13 @@ const VoxelAvatar = () => {
   }, [handleWindowResize]);
 
   return (
-    <AvatarContainer ref={refContainer}>
-      {loading && <AvatarSpinner />}
-    </AvatarContainer>
+    <div className="flex justify-center absolute w-full h-full top-0 left-0">
+      <div className="relative h-full aspect-square overflow-visible">
+        <AvatarContainer ref={refContainer}>
+          {loading && <AvatarSpinner />}
+        </AvatarContainer>
+      </div>
+    </div>
   );
 };
 

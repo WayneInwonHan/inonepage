@@ -25,9 +25,12 @@ export const AvatarContainer = forwardRef(({ children }, ref) => (
     className="voxel-avatar"
     style={{
       margin: "auto",
-      width: "640px",
-      height: "640px",
-      position: "relative",
+      width: "100%",
+      height: "100%",
+      position: "absolute",
+      zIndex: "10",
+      top: "0",
+      let: "0",
     }}
   >
     {children}
