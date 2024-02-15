@@ -1,1 +1,18 @@
-
+.a {
+  transform: rotateY(0deg) translateZ(150px);
+}
+.b {
+  transform: rotateY(60deg) translateZ(150px);
+}
+.c {
+  transform: rotateY(120deg) translateZ(150px);
+}
+.d {
+  transform: rotateY(180deg) translateZ(150px);
+}
+.e {
+  transform: rotateY(240deg) translateZ(150px);
+}
+.f {
+  transform: rotateY(300deg) translateZ(150px);
+}

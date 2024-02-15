@@ -9,24 +9,21 @@ const DoodleCard = () => {
   };
 
   return (
-    <div>
-      <div className={styles.container}>
-        <div
-          className={styles.carousel}
-          style={{ transform: `rotateY(${currdeg}deg)` }}
-        >
-          <div className={`${styles.item} ${styles.a}`}>A</div>
-          <div className={`${styles.item} ${styles.b}`}>B</div>
-          <div className={`${styles.item} ${styles.c}`}>C</div>
-          <div className={`${styles.item} ${styles.d}`}>D</div>
-          <div className={`${styles.item} ${styles.e}`}>E</div>
-          <div className={`${styles.item} ${styles.f}`}>F</div>
+    <div className="relative w-full h-full">
+      <div className="">
+        <div className="" style={{ transform: `rotateY(${currdeg}deg)` }}>
+          <div className="a">A</div>
+          <div className="b">B</div>
+          <div className="c">C</div>
+          <div className="d">D</div>
+          <div className="e">E</div>
+          <div className="f">F</div>
         </div>
       </div>
-      <div className={styles.next} onClick={() => rotate("next")}>
+      <div className="" onClick={() => rotate("next")}>
         Next
       </div>
-      <div className={styles.prev} onClick={() => rotate("prev")}>
+      <div className="" onClick={() => rotate("prev")}>
         Prev
       </div>
     </div>
