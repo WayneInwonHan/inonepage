@@ -52,9 +52,28 @@
   transition: 1s;
   border-bottom-right-radius: 100px 25px;
   border-bottom-left-radius: 100px 25px;
+  animation: eyeOpenClose 8s ease-in-out infinite;
 }
 
 .eye:hover .eyelid {
   transform: translateY(-50%);
   transition: 1s;
+}
+
+@keyframes eyeOpenClose {
+  0% {
+    transform: translateY(-100%);
+  }
+  25% {
+    transform: translateY(-100%);
+  }
+  50% {
+    transform: translateY(-50%);
+  }
+  75% {
+    transform: translateY(-100%);
+  }
+  100% {
+    transform: translateY(-100%);
+  }
 }

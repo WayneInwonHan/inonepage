@@ -6,7 +6,7 @@ const Background = () => {
     <div className="absolute z-[-1] p-1 inset-0 w-full h-full flex flex-wrap bg-black">
       <div className="w-1/2 h-full flex flex-col">
         <div className="h-3/6 flex flex-row">
-          <div className="w-1/2 bg-initial hover:bg-red-500 m-2 rounded-lg"></div>
+          <div className="w-1/2 bg-initial bg-red-500 m-2 rounded-lg"></div>
           <div className="w-1/2 bg-initial hover:bg-yellow-200 m-2 rounded-lg"></div>
         </div>
         <div className="w-1/1 h-1/6 bg-initial hover:bg-lime-300 m-2 rounded-lg"></div>
