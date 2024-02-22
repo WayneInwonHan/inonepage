@@ -8,6 +8,7 @@ import ProjectCard from "@/components/ProjectCard";
 
 import Image from "next/image";
 import { Button } from "../components/ui/button";
+import "../components/JellyButton.css";
 
 import { FaGhost, FaEnvelope } from "react-icons/fa";
 
@@ -51,11 +52,11 @@ export default function Home() {
               part of what I do.
             </div>
             <div className="flex flex-row mt-4 gap-x-2">
-              <Button className="gap-x-2">
+              <Button className="gap-x-2 jelly-btn">
                 about me
                 <FaGhost size={16} />
               </Button>
-              <Button className="gap-x-2">
+              <Button className="gap-x-2 jelly-btn">
                 contact me
                 <FaEnvelope size={16} />
               </Button>
