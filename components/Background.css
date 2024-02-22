@@ -1,6 +1,46 @@
 /* Initial state with full opacity */
 .bg-initial {
-  background-color: #fcfbf4;
+  background-color: none;
   opacity: 1;
-  transition: 0.5s ease;
+  animation: 10s backgroundAnimation ease infinite;
+}
+
+@keyframes backgroundAnimation {
+  0% {
+    background-color: none;
+  }
+  30% {
+    background-color: #fcfbf4;
+  }
+  80% {
+    background-color: #fcfbf4;
+  }
+  100% {
+    background-color: none;
+  }
+}
+
+.bg-anime-red {
+  animation-delay: 0s;
+}
+.bg-anime-amber {
+  animation-delay: 7.5s;
+}
+.bg-anime-sky {
+  animation-delay: 3s;
+}
+.bg-anime-lime {
+  animation-delay: 4.5s;
+}
+.bg-anime-pink {
+  animation-delay: 6s;
+}
+.bg-anime-green {
+  animation-delay: 1.5s;
+}
+.bg-anime-blue {
+  animation-delay: 9s;
+}
+.bg-anime-yellow {
+  animation-delay: 8s;
 }
