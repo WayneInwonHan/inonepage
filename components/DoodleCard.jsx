@@ -9,23 +9,38 @@ const DoodleCard = () => {
   };
 
   return (
-    <div className="relative w-full perspective-1000">
-      <div className="">
-        <div className="" style={{ transform: `rotateY(${currdeg}deg)` }}>
-          <div className="border-black border-2">A</div>
-          <div className="b">B</div>
-          <div className="c">C</div>
-          <div className="d">D</div>
-          <div className="e">E</div>
-          <div className="f">F</div>
+    <div className="w-full h-full relative overflow-hidden">
+      <div className="m-auto w-full h-full relative perspective-1000">
+        <div
+          className="absolute h-full w-full doodleCarousel"
+          style={{ transform: `rotateY(${currdeg}deg)` }}
+        >
+          <div className="absolute block w-[150px] h-[100px] border-black border-2 rounded-sm doodleCard-1">
+            A
+          </div>
+          <div className="absolute block w-[150px] h-[100px] border-black border-2 rounded-sm doodleCard-2">
+            B
+          </div>
+          <div className="absolute block w-[150px] h-[100px] border-black border-2 rounded-sm doodleCard-3">
+            C
+          </div>
+          <div className="absolute block w-[150px] h-[100px] border-black border-2 rounded-sm doodleCard-4">
+            D
+          </div>
+          <div className="absolute block w-[150px] h-[100px] border-black border-2 rounded-sm doodleCard-5">
+            E
+          </div>
+          <div className="absolute block w-[150px] h-[100px] border-black border-2 rounded-sm doodleCard-6">
+            F
+          </div>
         </div>
       </div>
       <div className="absolute w-full bottom-0 flex justify-center">
-        <div className="w-[100px] text-center" onClick={() => rotate("next")}>
-          Next
-        </div>
         <div className="w-[100px] text-center" onClick={() => rotate("prev")}>
           Prev
+        </div>
+        <div className="w-[100px] text-center" onClick={() => rotate("next")}>
+          Next
         </div>
       </div>
     </div>

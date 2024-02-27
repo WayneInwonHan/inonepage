@@ -1,18 +1,22 @@
-.a {
+.doodleCarousel {
+  transform-style: preserve-3d;
+  transition: transform 1s;
+}
+.doodleCard-1 {
   transform: rotateY(0deg) translateZ(150px);
 }
-.b {
+.doodleCard-2 {
   transform: rotateY(60deg) translateZ(150px);
 }
-.c {
+.doodleCard-3 {
   transform: rotateY(120deg) translateZ(150px);
 }
-.d {
+.doodleCard-4 {
   transform: rotateY(180deg) translateZ(150px);
 }
-.e {
+.doodleCard-5 {
   transform: rotateY(240deg) translateZ(150px);
 }
-.f {
+.doodleCard-6 {
   transform: rotateY(300deg) translateZ(150px);
 }

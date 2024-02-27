@@ -102,7 +102,7 @@ export default function Home() {
                   <div className="page-window-bar-button"></div>
                 </div>
               </div>
-              <div className="page-window-content w-full h-full">
+              <div className="page-window-content">
                 <RecentProjectCard />
               </div>
             </div>
