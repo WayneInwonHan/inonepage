@@ -10,10 +10,10 @@ const DoodleCard = () => {
 
   return (
     <div className="w-full h-full relative overflow-hidden">
-      <div className="m-auto w-full h-full relative perspective-1000">
+      <div className="m-auto w-[150px] h-full relative perspective-1000">
         <div
-          className="absolute h-full w-full doodleCarousel"
-          style={{ transform: `rotateY(${currdeg}deg)` }}
+          className="absolute m-auto pt-5 h-full w-full doodleCarousel"
+          style={{ transform: `rotateX(-5deg) rotateY(${currdeg}deg)` }}
         >
           <div className="absolute block w-[150px] h-[100px] border-black border-2 rounded-sm doodleCard-1">
             A
@@ -35,11 +35,17 @@ const DoodleCard = () => {
           </div>
         </div>
       </div>
-      <div className="absolute w-full bottom-0 flex justify-center">
-        <div className="w-[100px] text-center" onClick={() => rotate("prev")}>
+      <div className="absolute w-full bottom-2 flex justify-center">
+        <div
+          className="w-[100px] rounded-full text-center"
+          onClick={() => rotate("prev")}
+        >
           Prev
         </div>
-        <div className="w-[100px] text-center" onClick={() => rotate("next")}>
+        <div
+          className="w-[100px] rounded-full text-center"
+          onClick={() => rotate("next")}
+        >
           Next
         </div>
       </div>
