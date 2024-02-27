@@ -67,7 +67,7 @@ export default function Home() {
           </div>
         </div>
         <div className="w-fill h-full gap-6 flex flex-row">
-          <div className="w-full h-full gap-6 flex flex-col">
+          <div className="w-1/2 h-full gap-6 flex flex-col">
             <div className="page-window h-3/4">
               <div className="page-window-bar">
                 <div>Doodles</div>
@@ -93,16 +93,18 @@ export default function Home() {
               </div>
             </div>
           </div>
-          <div className="page-window">
-            <div className="page-window-bar">
-              <div>Recent Projects</div>
-              <div className="page-window-bar-buttons">
-                <div className="page-window-bar-button"></div>
-                <div className="page-window-bar-button"></div>
+          <div className="w-1/2 h-full flex">
+            <div className="page-window">
+              <div className="page-window-bar">
+                <div>Recent Projects</div>
+                <div className="page-window-bar-buttons">
+                  <div className="page-window-bar-button"></div>
+                  <div className="page-window-bar-button"></div>
+                </div>
               </div>
-            </div>
-            <div className="page-window-content">
-              <RecentProjectCard />
+              <div className="page-window-content w-full h-full">
+                <RecentProjectCard />
+              </div>
             </div>
           </div>
         </div>

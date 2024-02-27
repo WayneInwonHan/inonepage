@@ -9,7 +9,7 @@
   0% {
     background-color: none;
   }
-  30% {
+  20% {
     background-color: #fcfbf4;
   }
   80% {
@@ -21,7 +21,7 @@
 }
 
 .bg-anime-red {
-  animation-delay: 0s;
+  animation-delay: 10s;
 }
 .bg-anime-amber {
   animation-delay: 7.5s;
