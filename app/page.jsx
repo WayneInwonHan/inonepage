@@ -6,6 +6,7 @@ import AvatarText from "@/components/AvatarText";
 import DoodleCard from "@/components/DoodleCard";
 import ProjectCard from "@/components/ProjectCard";
 
+import Link from "next/link";
 import Image from "next/image";
 import { Button } from "../components/ui/button";
 import "../components/JellyButton.css";
@@ -132,7 +133,11 @@ export default function Home() {
               <div className="page-window-bar-button"></div>
             </div>
           </div>
-          <div className="page-window-content"></div>
+          <div className="page-window-content">
+            <Link href="/minigame">
+              <div className="h-full w-full"></div>
+            </Link>
+          </div>
         </div>
       </div>
     </div>
