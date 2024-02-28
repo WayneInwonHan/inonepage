@@ -1,5 +1,7 @@
 import React, { useState } from "react";
-import styles from "./DoodleCard.css"; // Make sure the path matches your file structure
+import "./DoodleCard.css";
+
+import { FaAngleLeft, FaAngleRight } from "react-icons/fa";
 
 const DoodleCard = () => {
   const [currdeg, setCurrdeg] = useState(0);
@@ -35,18 +37,18 @@ const DoodleCard = () => {
           </div>
         </div>
       </div>
-      <div className="absolute w-full bottom-2 flex justify-center">
+      <div className="absolute w-full bottom-1 flex gap-1 justify-center">
         <div
-          className="w-[100px] rounded-full text-center"
+          className="w-[100px] rounded-lg flex justify-center bg-black text-white cursor-pointer p-1"
           onClick={() => rotate("prev")}
         >
-          Prev
+          <FaAngleLeft size="1.25rem" />
         </div>
         <div
-          className="w-[100px] rounded-full text-center"
+          className="w-[100px] rounded-lg flex justify-center bg-black text-white cursor-pointer p-1"
           onClick={() => rotate("next")}
         >
-          Next
+          <FaAngleRight size="1.25rem" />
         </div>
       </div>
     </div>
