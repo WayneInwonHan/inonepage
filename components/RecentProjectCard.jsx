@@ -52,11 +52,11 @@ const RecentProjectCard = () => {
   return (
     <div className="relative w-full h-full flex flex-col pl-2 pt-2 pr-2 pb-6">
       <div className="w-full h-full border-[1px] border-black rounded-sm relative">
-        <Link href="/work">
-          <div
-            className="overflow-hidden"
-            style={{ width: "100%", height: "100%" }}
-          >
+        <div
+          className="overflow-hidden"
+          style={{ width: "100%", height: "100%" }}
+        >
+          <Link href="/work">
             <div
               className="relative flex transition-transform duration-500"
               style={{
@@ -98,19 +98,19 @@ const RecentProjectCard = () => {
                 </div>
               ))}
             </div>
-          </div>
-          <div className="projectCardDots flex flex-row justify-center mt-[7.5px] gap-2">
-            {Array.from({ length: totalSlides }).map((_, index) => (
-              <div
-                key={index}
-                className={`projectCardDot rounded-full w-[12.5px] h-[12.5px] ${
-                  currentIndex === index ? "bg-black" : "bg-white"
-                } border-[2px] border-black cursor-pointer`}
-                onClick={() => handleDotClick(index)}
-              ></div>
-            ))}
-          </div>
-        </Link>
+          </Link>
+        </div>{" "}
+        <div className="projectCardDots flex flex-row justify-center mt-[7.5px] gap-2">
+          {Array.from({ length: totalSlides }).map((_, index) => (
+            <div
+              key={index}
+              className={`projectCardDot rounded-full w-[12.5px] h-[12.5px] ${
+                currentIndex === index ? "bg-black" : "bg-white"
+              } border-[2px] border-black cursor-pointer`}
+              onClick={() => handleDotClick(index)}
+            ></div>
+          ))}
+        </div>
       </div>
     </div>
   );
