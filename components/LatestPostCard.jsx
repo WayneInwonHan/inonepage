@@ -5,7 +5,7 @@ import "./PostCardBar.css";
 
 const LatestPostCard = () => {
   return (
-    <div className="w-full h-full flex">
+    <div className="w-full h-full flex align-center">
       <Link href="/blog" className="w-full h-[30px]">
         <div className="w-full h-full flex flex-row justify-between items-center">
           <div className="w-[250px] h-[20px] pl-[7.5px] overflow-hidden text-ellipsis whitespace-nowrap">

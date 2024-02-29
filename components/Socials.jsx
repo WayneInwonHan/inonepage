@@ -19,7 +19,7 @@ const icons = [
 
 const Socials = ({ iconsStyles }) => {
   return (
-    <div className="flex gap-3">
+    <div className="flex gap-3 text-white">
       {icons.map((icon, index) => {
         return (
           <Link href={icon.path} key={index}>
