@@ -6,7 +6,7 @@ import "./PostCardBar.css";
 const LatestPostCard = () => {
   return (
     <div className="w-full h-full flex align-center">
-      <Link href="/blog" className="w-full h-[30px]">
+      <Link href="/blog" className="w-full h-full">
         <div className="w-full h-full flex flex-row justify-between items-center">
           <div className="w-[250px] h-[20px] pl-[7.5px] overflow-hidden text-ellipsis whitespace-nowrap">
             this is the recent post title name: text overflow ellipsis
