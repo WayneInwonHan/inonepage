@@ -121,8 +121,8 @@ export default function Home() {
           </div>
           <div className="page-window-content h-full w-full relative overflow-hidden">
             <AvatarBackground className="absolute" />
-            <AvatarText className="absolute" />
             <VoxelAvatar />
+            <AvatarText className="absolute" />
           </div>
         </div>
         <div className="page-window absolute bottom-12 right-12 w-[165px] h-[165px] z-10">
