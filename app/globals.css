@@ -132,3 +132,7 @@
       -2px 2px black;
   }
 }
+
+.rotate-y-180 {
+  transform: rotateY(180deg);
+}
