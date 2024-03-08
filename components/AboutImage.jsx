@@ -32,19 +32,19 @@ const AboutImage = ({ imgSrc, backImgSrc }) => {
 
       setOverlayStyle({
         ...defaultOverlayStyle,
-        backgroundPosition: `${50 + (x / bounds.width) * 50}% ${
-          50 + (y / bounds.height) * 50
+        backgroundPosition: `${50 + (x / bounds.width) * 150}% ${
+          50 + (y / bounds.height) * 150
         }%`,
-        filter: `opacity(${Math.abs(x / bounds.width)}) brightness(0.5)`,
+        filter: `opacity(${Math.abs(x / bounds.width)}) brightness(0.75)`,
       });
 
-      container.style.transform = `perspective(500px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+      container.style.transform = `perspective(450px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
     };
 
     const handleMouseOut = () => {
       setOverlayStyle(defaultOverlayStyle);
       container.style.transform =
-        "perspective(500px) rotateY(0deg) rotateX(0deg)";
+        "perspective(450px) rotateY(0deg) rotateX(0deg)";
     };
 
     container.addEventListener("mousemove", handleMouseMove);
@@ -60,32 +60,37 @@ const AboutImage = ({ imgSrc, backImgSrc }) => {
     <div className="flex flex-col items-center">
       <div
         ref={containerRef}
-        className={`relative w-[450px] h-[450px] rounded-3xl overflow-hidden transition-transform duration-700 ease-linear ${
-          isFlipped ? "rotate-y-180" : ""
-        }`}
+        className={`relative w-[450px] h-[450px] rounded-full overflow-hidden transition-transform duration-700 ease-linear`}
       >
         <div
-          className="absolute inset-0 bg-gradient-to-r from-transparent via-yellow-200 to-purple-500 z-10 mix-blend-color-dodge bg-[linear-gradient(45deg,
-    transparent 40%,
-    rgba(255, 219, 112, 0.8) 45%,
-    rgba(132, 50, 255 ,0.6) 50%,
-    transparent 54%)] transition-all duration-100 ease-linear"
+          className="absolute inset-0 bg-gradient-to-r from-transparent via-yellow-200 to-purple-500 z-10 mix-blend-color-dodge transition-all duration-100 ease-linear"
           style={overlayStyle}
         />
+        <div className="noise-effect"></div>
+
         <Image
           src={isFlipped ? backImgSrc : imgSrc}
           layout="fill"
           objectFit="cover"
           priority
           alt=""
-          className={`${isFlipped ? "rotate-y-180" : ""}`}
         />
       </div>
       <button
         onClick={handleFlip}
-        className="mt-4 bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-700 transition duration-300"
+        className="absolute bottom-0 left-0 text-white font-bold text-[5rem] transition duration-300 overflow-hidden"
+        style={{ whiteSpace: "nowrap" }}
       >
-        Flip Image
+        <div
+          className="animate-marquee whitespace-nowrap"
+          style={{
+            display: "inline-block",
+            animation: "marquee 30s linear infinite",
+          }}
+        >
+          Click here <span className="text-pink-300">•</span> Click here
+          <span className="text-pink-300">•</span> Click here
+        </div>
       </button>
     </div>
   );
