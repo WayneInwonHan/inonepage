@@ -20,13 +20,13 @@
 .eyeball {
   position: absolute;
   top: 50%;
-  left: 50%;
+  left: 25%;
   width: 60px;
   height: 60px;
   background-color: black;
   border-radius: 50%;
-  transform: translate(-50%, -50%);
-  transition: transform 0.1s linear;
+  transform: translate(0%, -50%);
+  transition: 1s;
 }
 
 .eyeball::after {
@@ -76,4 +76,9 @@
   100% {
     transform: translateY(-100%);
   }
+}
+
+.eye:hover .eyeball {
+  background: #d21f3c;
+  transition: 1s;
 }

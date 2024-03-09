@@ -44,7 +44,7 @@ const AboutImage = ({ imgSrc, backImgSrc }) => {
     const handleMouseOut = () => {
       setOverlayStyle(defaultOverlayStyle);
       container.style.transform =
-        "perspective(450px) rotateY(0deg) rotateX(0deg)";
+        "perspective(500px) rotateY(0deg) rotateX(0deg)";
     };
 
     container.addEventListener("mousemove", handleMouseMove);
@@ -60,7 +60,7 @@ const AboutImage = ({ imgSrc, backImgSrc }) => {
     <div className="flex flex-col items-center">
       <div
         ref={containerRef}
-        className={`relative w-[450px] h-[450px] rounded-full overflow-hidden transition-transform duration-700 ease-linear`}
+        className={`relative w-[450px] h-[450px] rounded-full overflow-hidden transition-transform duration-500 ease-linear`}
       >
         <div
           className="absolute inset-0 bg-gradient-to-r from-transparent via-yellow-200 to-purple-500 z-10 mix-blend-color-dodge transition-all duration-100 ease-linear"
@@ -70,10 +70,12 @@ const AboutImage = ({ imgSrc, backImgSrc }) => {
 
         <Image
           src={isFlipped ? backImgSrc : imgSrc}
-          layout="fill"
           objectFit="cover"
           priority
+          layout="responsive"
           alt=""
+          width={450}
+          height={450}
         />
       </div>
       <button
@@ -88,8 +90,8 @@ const AboutImage = ({ imgSrc, backImgSrc }) => {
             animation: "marquee 30s linear infinite",
           }}
         >
-          Click here <span className="text-pink-300">•</span> Click here
-          <span className="text-pink-300">•</span> Click here
+          Click here<span className="text-pink-300 px-4">•</span>Click here
+          <span className="text-pink-300 px-4">•</span>Click here
         </div>
       </button>
     </div>
