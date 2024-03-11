@@ -131,32 +131,32 @@ const skillData = [
     data: [
       {
         name: "LazyVim",
-        color: "blue",
+        color: "#2F7DE9",
         purpose: "IDE",
       },
       {
         name: "GitHub",
-        color: "black",
+        color: "#020408",
         purpose: "Version Control",
       },
       {
         name: "AdobeXD",
-        color: "purple",
+        color: "#470137",
         purpose: "UI Design",
       },
       {
         name: "Blender",
-        color: "orange",
+        color: "#E1790B",
         purpose: "3D Modeling",
       },
       {
         name: "Obsidian",
-        color: "pink",
+        color: "#A88BFA",
         purpose: "Note & Brainstorm",
       },
       {
         name: "Be Focused",
-        color: "orange",
+        color: "#E23527",
         purpose: "Time Management",
       },
     ],
@@ -189,7 +189,7 @@ const AboutTabs = () => {
   };
 
   return (
-    <div className="flex-1 p-5">
+    <div className="relative flex-1 p-5">
       <Tabs
         defaultValue="aboutme"
         className="flex flex-col justify-center items-center"
@@ -276,7 +276,7 @@ const AboutTabs = () => {
           <TabsContent value="skills">
             <div className="text-center xl:text-left">
               <div className="mb-8">
-                <h4 className="text-xl font-semibold mb-2 xl:text-left">
+                <h4 className="text-lg font-semibold mb-2 xl:text-left">
                   Here are a few technologies I'v been working with recently
                 </h4>
                 <div className="border-b border-border mb-4"></div>
@@ -298,21 +298,26 @@ const AboutTabs = () => {
                 </div>
               </div>
               <div className="mb-8">
-                <h4 className="text-xl font-semibold mb-2">
+                <h4 className="text-lg font-semibold mb-2">
                   Tools I use every day
                 </h4>
                 <div className="border-b border-border mb-4"></div>
-                <div>
+                <div className="grid grid-cols-2">
                   {getData(skillData, "tools").data.map((item, index) => {
                     const { name, color, purpose } = item;
                     return (
                       <div
-                        className="w-2/4 text-center xl:text-left mx-auto xl:mx-0"
+                        className="text-center xl:text-left mx-auto xl:mx-0"
                         key={index}
                       >
-                        <div className="font-medium text-{color}">
+                        <div
+                          className="text-[16px] font-bold"
+                          style={{ color: color }}
+                        >
                           {name}
-                          {purpose}
+                          <span className="ml-1 text-[13px] font-normal text-black">
+                            ({purpose})
+                          </span>
                         </div>
                       </div>
                     );
@@ -323,17 +328,18 @@ const AboutTabs = () => {
                 <h4 className="text-xl font-semibold mb-2">Interest Areas</h4>
                 <div className="border-b border-border mb-4"></div>
                 <div>
-                  {getData(skillData, "interests").data.map((item, index) => {
-                    const { field } = item;
-                    return (
-                      <div
-                        className="w-2/4 text-center xl:text-left mx-auto xl:mx-0"
-                        key={index}
-                      >
-                        <div className="font-medium">{field}</div>
-                      </div>
-                    );
-                  })}
+                  {getData(skillData, "interests").data.map(
+                    (item, index, arr) => {
+                      const { field } = item;
+                      const separator = index < arr.length - 1 ? " • " : ""; // Add separator for all but the last item
+                      return (
+                        <span key={index} className="text-[16px] leading-0">
+                          {field}
+                          {separator}
+                        </span>
+                      );
+                    },
+                  )}
                 </div>
               </div>
             </div>

@@ -38,7 +38,7 @@ const AboutImage = ({ imgSrc, backImgSrc }) => {
         filter: `opacity(${Math.abs(x / bounds.width)}) brightness(0.75)`,
       });
 
-      container.style.transform = `perspective(450px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+      container.style.transform = `perspective(250px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
     };
 
     const handleMouseOut = () => {
