@@ -341,33 +341,41 @@ const MiniGame = () => {
                 </div>
               </div>
               {/* Game Controls */}
+
               <div className="flex flex-row gap-2 align-center items-center">
-                {[-10, -5, -1].map((change) => (
-                  <button
-                    className="bg-black font-bold text-white w-10 h-10 rounded-sm jelly-btn"
-                    key={change}
-                    onClick={() => handleBetChange(change)}
-                    disabled={bet + change < 1}
-                    style={{ opacity: bet + change < 1 ? 0.5 : 1 }}
-                  >
-                    {change}
-                  </button>
-                ))}
+                {/* Conditionally render bet decrement buttons only in phase 1 */}
+                {gamePhase === 1 &&
+                  [-10, -5, -1].map((change) => (
+                    <button
+                      className="bg-black font-bold text-white w-10 h-10 rounded-sm jelly-btn"
+                      key={change}
+                      onClick={() => handleBetChange(change)}
+                      disabled={bet + change < 1}
+                      style={{ opacity: bet + change < 1 ? 0.5 : 1 }}
+                    >
+                      {change}
+                    </button>
+                  ))}
+
+                {/* Always show the bet amount */}
                 <div className="font-bold text-black text-[3rem] mx-5">
                   <span>Bet</span>
                   <span>{bet}</span>
                 </div>
-                {[1, 5, 10].map((change) => (
-                  <button
-                    className="bg-black font-bold text-white w-10 h-10 rounded-sm jelly-btn"
-                    key={change}
-                    onClick={() => handleBetChange(change)}
-                    disabled={bet + change > 50}
-                    style={{ opacity: bet + change > 50 ? 0.5 : 1 }}
-                  >
-                    +{change}
-                  </button>
-                ))}
+
+                {/* Conditionally render bet increment buttons only in phase 1 */}
+                {gamePhase === 1 &&
+                  [1, 5, 10].map((change) => (
+                    <button
+                      className="bg-black font-bold text-white w-10 h-10 rounded-sm jelly-btn"
+                      key={change}
+                      onClick={() => handleBetChange(change)}
+                      disabled={bet + change > 50}
+                      style={{ opacity: bet + change > 50 ? 0.5 : 1 }}
+                    >
+                      +{change}
+                    </button>
+                  ))}
               </div>
               <div className="text-black">
                 {gamePhase === 1 ? (
