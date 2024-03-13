@@ -1,6 +1,8 @@
 "use client";
 // pages/minigame.jsx
 import React, { useState } from "react";
+import { Button } from "../../components/ui/button";
+import "../../components/JellyButton.css";
 
 // Helper function to create a deck of cards
 const createDeck = () => {
@@ -31,32 +33,71 @@ const createDeck = () => {
   return deck;
 };
 
+const getRandomCard = (excludedCards = new Set()) => {
+  let card, cardKey;
+  do {
+    const suits = ["♠️", "♦️", "♣️", "♥️"];
+    const ranks = [
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "7",
+      "8",
+      "9",
+      "10",
+      "J",
+      "Q",
+      "K",
+      "A",
+    ];
+    const suit = suits[Math.floor(Math.random() * suits.length)];
+    const rank = ranks[Math.floor(Math.random() * ranks.length)];
+    card = { rank, suit };
+    cardKey = `${rank}${suit}`;
+  } while (excludedCards.has(cardKey));
+  return card;
+};
+
+const drawUniqueCard = (excludedCards) => {
+  let card;
+  let isUnique = false;
+  while (!isUnique) {
+    card = getRandomCard();
+    const cardKey = card.rank + card.suit;
+    if (!excludedCards.includes(cardKey)) {
+      isUnique = true;
+    }
+  }
+  return card;
+};
+
 const Card = ({ card, isSelected, onSelect }) => {
   const select = () => onSelect(card);
 
-  // Determine the color of the card based on its suit
+  // Determine the card color based on its suit
   const cardColor =
     card.suit === "♥️" || card.suit === "♦️" ? "text-red-500" : "text-black";
 
-  // Apply additional styling to make it look more like a card
-  const className = `
-    ${isSelected ? "ring-4 ring-blue-300" : ""}
-    ${cardColor} bg-white flex justify-center items-center
-    border rounded-lg shadow-md cursor-pointer
-    w-24 h-32 m-1 relative
-  `;
+  // Apply additional styling for selected (kept) cards
+  const selectedStyles = isSelected
+    ? "border-2 border-red-500 -translate-y-2.5 relative"
+    : "";
 
   return (
-    <div className={className} onClick={select}>
-      <div className="absolute top-1 left-1">
-        {card.rank}
-        {card.suit}
-      </div>
+    <div
+      className={`relative flex flex-col justify-center items-center m-1 p-2 rounded-lg shadow-md cursor-pointer w-[50px] h-[75px] bg-white ${cardColor} ${selectedStyles}`}
+      onClick={select}
+    >
+      <div className="absolute font-bold top-1 left-1">{card.rank}</div>
+      {isSelected && (
+        <span className="text-[13px] text-red-500 font-bold absolute bottom-[-15px] bg-white px-1">
+          HELD
+        </span>
+      )}
       <div className="text-3xl">{card.suit}</div>
-      <div className="absolute bottom-1 right-1">
-        {card.rank}
-        {card.suit}
-      </div>
+      <div className="absolute font-bold bottom-1 right-1">{card.rank}</div>
     </div>
   );
 };
@@ -66,8 +107,8 @@ const winningConditions = [
   { name: "2 Pair", multiplier: 2 },
   { name: "3 of a Kind", multiplier: 3 },
   { name: "Straight", multiplier: 4 },
-  { name: "Flush", multiplier: 5 },
-  { name: "Full House", multiplier: 10 },
+  { name: "Flush", multiplier: 6 },
+  { name: "Full House", multiplier: 7 },
   { name: "4 of a Kind", multiplier: 25 },
   { name: "Straight Flush", multiplier: 50 },
   { name: "Royal Flush", multiplier: 250 },
@@ -104,203 +145,265 @@ const MiniGame = () => {
   const [currentHand, setCurrentHand] = useState([]);
   const [gamePhase, setGamePhase] = useState(1); // 1 for DRAW phase, 2 for DEAL phase
   const [currentWinCondition, setCurrentWinCondition] = useState(""); // Corrected to store a string
+  const [winCount, setWinCount] = useState(0);
 
   // Function to handle card selection
-  const handleSelectCard = (card) => {
-    const handleSelectCard = (card) => {
+  const handleSelectCard = (index) => {
+    if (gamePhase === 2) {
+      // Ensure selection is intended for phase 2
       setSelectedCards((prevSelected) => {
-        const cardIndex = prevSelected.findIndex(
-          (selectedCard) =>
-            selectedCard.rank === card.rank && selectedCard.suit === card.suit,
-        );
-
-        if (cardIndex >= 0) {
-          // If the card is already selected, remove it from the array
-          return prevSelected.filter((_, index) => index !== cardIndex);
+        if (prevSelected.includes(index)) {
+          return prevSelected.filter((i) => i !== index); // Deselect the card
         } else {
-          // Otherwise, add the card to the array
-          return [...prevSelected, card];
+          return [...prevSelected, index]; // Select the card
         }
       });
-    };
+    }
   };
 
   // Function to handle bet adjustments
   const handleBetChange = (change) => {
     setBet((prevBet) => {
-      const newBet = prevBet + change;
-      return newBet >= 1 && newBet <= 50 ? newBet : prevBet;
+      let newBet = prevBet + change;
+      if (newBet > 50) return 50; // Ensure bet does not exceed 50
+      if (newBet < 1) return 1; // Ensure bet does not drop below 1
+      return newBet;
     });
+  };
+
+  // Helper functions to prepare the hand for easier evaluation
+  const rankMap = {
+    2: 2,
+    3: 3,
+    4: 4,
+    5: 5,
+    6: 6,
+    7: 7,
+    8: 8,
+    9: 9,
+    10: 10,
+    J: 11,
+    Q: 12,
+    K: 13,
+    A: 14,
+  };
+
+  const getRankValue = (card) => rankMap[card.rank];
+  const sortByRank = (hand) =>
+    hand.slice().sort((a, b) => getRankValue(a) - getRankValue(b));
+
+  // Utility to count occurrences of each rank in the hand
+  const countRanks = (hand) =>
+    hand.reduce((acc, card) => {
+      acc[card.rank] = (acc[card.rank] || 0) + 1;
+      return acc;
+    }, {});
+
+  // Hand evaluation functions
+  const isFlush = (hand) => new Set(hand.map((card) => card.suit)).size === 1;
+
+  const isStraight = (sortedHand) => {
+    for (let i = 1; i < sortedHand.length; i++) {
+      if (getRankValue(sortedHand[i]) - getRankValue(sortedHand[i - 1]) !== 1) {
+        return false;
+      }
+    }
+    return true;
+  };
+
+  const isRoyalFlush = (sortedHand) =>
+    isStraight(sortedHand) &&
+    isFlush(sortedHand) &&
+    sortedHand[0].rank === "10";
+
+  const isStraightFlush = (sortedHand) =>
+    isStraight(sortedHand) && isFlush(sortedHand) && !isRoyalFlush(sortedHand);
+
+  const evaluateHand = (hand) => {
+    const sortedHand = sortByRank(hand);
+    const rankCounts = countRanks(hand);
+    const ranks = Object.values(rankCounts);
+
+    if (isRoyalFlush(sortedHand)) return "Royal Flush";
+    if (isStraightFlush(sortedHand)) return "Straight Flush";
+    if (ranks.includes(4)) return "4 of a Kind";
+    if (ranks.includes(3) && ranks.includes(2)) return "Full House";
+    if (isFlush(hand)) return "Flush";
+    if (isStraight(sortedHand)) return "Straight";
+    if (ranks.includes(3)) return "3 of a Kind";
+    if (ranks.filter((count) => count === 2).length === 2) return "2 Pair";
+
+    // Moved the checking for "Jacks or Better" outside of a misplaced block
+    const pairRank = Object.keys(rankCounts).find(
+      (rank) => rankCounts[rank] === 2,
+    );
+    if (["J", "Q", "K", "A"].includes(pairRank)) return "Jacks or Better";
+
+    return "No Win";
   };
 
   // Function to handle draw/deal action
   const handleDrawDeal = () => {
     if (gamePhase === 1) {
-      // Randomly select 5 cards from the deck
-      const newHand = deck.slice(0, 5);
-      setCurrentHand(newHand);
-      // Remove those 5 cards from the deck
-      setDeck((prevDeck) => prevDeck.slice(5));
-      setGamePhase(2);
-    } else {
-      // Replace selected cards with new ones from the deck
-      const newCards = deck.slice(0, selectedCards.length);
-      const newDeck = deck.slice(selectedCards.length);
-      const newHand = currentHand.map((card) =>
-        selectedCards.includes(card) ? newCards.shift() : card,
-      );
+      // Phase 1: DRAW
+      if (credits >= bet) {
+        setCredits((prevCredits) => prevCredits - bet);
 
-      // Update state with the new hand and the remaining deck
+        let excludedCards = new Set();
+        const newHand = [];
+        while (newHand.length < 5) {
+          const card = getRandomCard(excludedCards);
+          newHand.push(card);
+          excludedCards.add(`${card.rank}${card.suit}`);
+        }
+        setCurrentHand(newHand);
+
+        // Evaluate hand after drawing to potentially highlight a winning condition
+        const result = evaluateHand(newHand);
+        setCurrentWinCondition(result);
+
+        setGamePhase(2);
+      } else {
+        alert("Not enough credits to bet.");
+      }
+    } else {
+      // Phase 2: DEAL
+      let excludedCardsSet = new Set(
+        currentHand.map((card) => `${card.rank}${card.suit}`),
+      );
+      let newHand = currentHand.map((card, index) => {
+        // Keep the card if its index is in selectedCards
+        if (selectedCards.includes(index)) {
+          return card;
+        } else {
+          // Draw a new card, ensuring it's unique within the context of this hand
+          let newCard;
+          do {
+            newCard = getRandomCard();
+          } while (excludedCardsSet.has(`${newCard.rank}${newCard.suit}`));
+
+          excludedCardsSet.add(`${newCard.rank}${newCard.suit}`);
+          return newCard;
+        }
+      });
+
       setCurrentHand(newHand);
-      setDeck(newDeck);
+      // Consider if you want to clear selected cards after dealing
       setSelectedCards([]);
 
-      // Helper functions to prepare the hand for easier evaluation
-      const rankMap = {
-        2: 2,
-        3: 3,
-        4: 4,
-        5: 5,
-        6: 6,
-        7: 7,
-        8: 8,
-        9: 9,
-        T: 10,
-        J: 11,
-        Q: 12,
-        K: 13,
-        A: 14,
-      };
-
-      const getRankValue = (card) => rankMap[card.rank];
-      const sortByRank = (hand) =>
-        hand.slice().sort((a, b) => getRankValue(a) - getRankValue(b));
-
-      // Utility to count occurrences of each rank in the hand
-      const countRanks = (hand) =>
-        hand.reduce((acc, card) => {
-          acc[card.rank] = (acc[card.rank] || 0) + 1;
-          return acc;
-        }, {});
-
-      // Hand evaluation functions
-      const isFlush = (hand) =>
-        new Set(hand.map((card) => card.suit)).size === 1;
-
-      const isStraight = (sortedHand) => {
-        for (let i = 1; i < sortedHand.length; i++) {
-          if (
-            getRankValue(sortedHand[i]) - getRankValue(sortedHand[i - 1]) !==
-            1
-          ) {
-            return false;
-          }
-        }
-        return true;
-      };
-
-      const isRoyalFlush = (sortedHand) =>
-        isStraight(sortedHand) &&
-        isFlush(sortedHand) &&
-        sortedHand[0].rank === "10";
-
-      const isStraightFlush = (sortedHand) =>
-        isStraight(sortedHand) &&
-        isFlush(sortedHand) &&
-        !isRoyalFlush(sortedHand);
-
-      const evaluateHand = (hand) => {
-        const sortedHand = sortByRank(hand);
-        const rankCounts = countRanks(hand);
-        const ranks = Object.values(rankCounts);
-
-        if (isRoyalFlush(sortedHand)) return "Royal Flush";
-        if (isStraightFlush(sortedHand)) return "Straight Flush";
-        if (ranks.includes(4)) return "4 of a Kind";
-        if (ranks.includes(3) && ranks.includes(2)) return "Full House";
-        if (isFlush(hand)) return "Flush";
-        if (isStraight(sortedHand)) return " Straight";
-        if (ranks.includes(3)) return "3 of a Kind";
-        if (ranks.filter((count) => count === 2).length === 2) return "2 Pair";
-        if (ranks.includes(2)) {
-          const pairRank = Object.keys(rankCounts).find(
-            (rank) => rankCounts[rank] === 2,
-          );
-          if (["J", "Q", "K", "A"].includes(pairRank)) return "Jacks or Better";
-        }
-        return "No Win";
-      };
-
-      const result = evaluateHand(currentHand);
+      // Re-evaluate hand, update win condition, and calculate winnings
+      const result = evaluateHand(newHand);
       setCurrentWinCondition(result);
+
+      const winDetail = winningConditions.find(
+        (condition) => condition.name === result,
+      );
+      const winnings = winDetail ? bet * winDetail.multiplier : 0;
+      setCredits((prevCredits) => prevCredits + winnings);
+      if (winnings > 0) {
+        setWinCount((prevWinCount) => prevWinCount + 1);
+      }
 
       setGamePhase(1);
     }
   };
 
-  // TODO: Add more logic and components for displaying the state of the game,
-  // adjusting the bet, drawing cards, dealing cards, checking for winning conditions,
-  // managing the credits, and handling the game phases.
-
   return (
-    <div className="bg-blue-900 min-h-screen flex flex-col items-center justify-start pt-8">
-      {/* Score Table */}
-      <div className="text-white mb-4">
-        <h2 className="text-2xl font-bold mb-2">Winning Conditions</h2>
-        <div className="grid grid-cols-2 gap-2">
-          {winningConditions.map((condition, index) => (
-            <div
-              key={index}
-              className={`flex justify-between p-2 ${
-                currentWinCondition === condition.name
-                  ? "bg-white text-blue-900"
-                  : "bg-blue-700"
-              }`}
-            >
-              <span>{condition.name}</span>
-              <span>x{condition.multiplier}</span>
+    <div className="w-full h-full gap-6 flex flex-col">
+      <div className="w-full h-full flex flex-col">
+        <div className="page-window">
+          <div className="page-window-bar">
+            <div></div>
+            <div className="page-window-bar-buttons">
+              <div className="page-window-bar-button"></div>
+              <div className="page-window-bar-button"></div>
             </div>
-          ))}
+          </div>
+          <div className="page-window-content p-5 justify-center align-center">
+            <div className="flex flex-col justify-center items-center">
+              {/* Score Table */}
+              <div className="text-black mb-4">
+                <h2 className="text-2xl font-bold mb-2">Winning Conditions</h2>
+                <div className="grid grid-cols-2 gap-2">
+                  {winningConditions.map((condition, index) => (
+                    <div
+                      key={index}
+                      className={`flex justify-between p-2 ${
+                        currentWinCondition === condition.name
+                          ? "bg-black text-white"
+                          : "bg-white text-black"
+                      }`}
+                    >
+                      <span>{condition.name}</span>
+                      <span>x{condition.multiplier}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+              {/* Game Controls */}
+              <div className="flex flex-row gap-2 align-center items-center">
+                {[-10, -5, -1].map((change) => (
+                  <button
+                    className="bg-black font-bold text-white w-10 h-10 rounded-sm jelly-btn"
+                    key={change}
+                    onClick={() => handleBetChange(change)}
+                    disabled={bet + change < 1}
+                    style={{ opacity: bet + change < 1 ? 0.5 : 1 }}
+                  >
+                    {change}
+                  </button>
+                ))}
+                <div className="font-bold text-black text-[3rem] mx-5">
+                  <span>Bet</span>
+                  <span>{bet}</span>
+                </div>
+                {[1, 5, 10].map((change) => (
+                  <button
+                    className="bg-black font-bold text-white w-10 h-10 rounded-sm jelly-btn"
+                    key={change}
+                    onClick={() => handleBetChange(change)}
+                    disabled={bet + change > 50}
+                    style={{ opacity: bet + change > 50 ? 0.5 : 1 }}
+                  >
+                    +{change}
+                  </button>
+                ))}
+              </div>
+              <div className="text-black">
+                {gamePhase === 1 ? (
+                  <h2>{currentWinCondition}</h2>
+                ) : (
+                  <>
+                    <h2>CLICK ON CARDS TO HOLD</h2>
+                    <h2>{currentWinCondition}</h2>
+                  </>
+                )}
+              </div>
+              <div className="flex mb-2 justify-center">
+                {currentHand.map((card, index) => (
+                  <Card
+                    key={index}
+                    card={card}
+                    isSelected={selectedCards.includes(index)}
+                    onSelect={() => handleSelectCard(index)}
+                  />
+                ))}
+              </div>
+              {/* Draw/Deal Button */}
+              <Button
+                className="bg-black text-white px-6 py-2 rounded text-2xl font-bold shadow-lg jelly-btn"
+                onClick={handleDrawDeal}
+              >
+                {gamePhase === 1 ? "DRAW" : "DEAL"}
+              </Button>
+              <div className="text-black mt-4">
+                <h2 className="text-xl font-bold">Credits: {credits}</h2>
+              </div>
+              <div className="text-black font-bold">Wins: {winCount}</div>
+            </div>
+          </div>
         </div>
       </div>
-
-      {/* Game Controls */}
-      <div className="flex items-center justify-center space-x-2 mb-4">
-        {[-10, -5, -1, 1, 5, 10].map((change) => (
-          <button
-            key={change}
-            className="bg-blue-700 text-white px-3 py-1 rounded shadow"
-            onClick={() => handleBetChange(change)}
-            disabled={bet + change < 1 || bet + change > 50 || gamePhase !== 1}
-          >
-            {change >= 0 ? `+${change}` : change}
-          </button>
-        ))}
-      </div>
-
-      {/* Cards Display */}
-      <div className="flex justify-center mb-4">
-        {currentHand.map((card, index) => (
-          <Card
-            key={index}
-            card={card}
-            isSelected={selectedCards.includes(card)}
-            onSelect={handleSelectCard}
-          />
-        ))}
-      </div>
-      {/* Game Info Display */}
-      <div className="mt-4 text-white">
-        <div className="text-white font-bold mb-4">Bet: {bet}</div>
-        {/* Add more displays for winnings, total earnings, etc. */}
-      </div>
-      {/* Draw/Deal Button */}
-      <button
-        className="bg-green-600 text-white px-6 py-2 rounded text-2xl font-bold shadow-lg"
-        onClick={handleDrawDeal}
-      >
-        {gamePhase === 1 ? "DRAW" : "DEAL"}
-      </button>
     </div>
   );
 };
