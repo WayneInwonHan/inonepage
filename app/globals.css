@@ -143,6 +143,13 @@
     -1px 1px 0 black,
     1px 1px 0 black;
 }
+.text-double-stroke {
+  text-shadow:
+    -2px -2px 0 black,
+    2px -2px 0 black,
+    -2px 2px 0 black,
+    2px 2px 0 black;
+}
 
 .jelly-btn:hover,
 .jelly-btn:focus,

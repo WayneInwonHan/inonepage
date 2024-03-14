@@ -319,7 +319,7 @@ const MiniGame = () => {
                 </div>
               </div>
               {/* Score Table */}
-              <div className="absolute left-5 m-auto text-black text-[16px] rounded-xl bg-white shadow-[5px_5px_rgb(0,0,0,1)] border-black border-2">
+              <div className="absolute left-5 m-auto text-black text-[16px] rounded-xl bg-white shadow-[5px_5px_rgb(0,0,0,1)] border-black border-2 z-10">
                 <div className="grid grid-cols-1 gap-0">
                   {winningConditions.map((condition, index) => (
                     <div
@@ -327,7 +327,7 @@ const MiniGame = () => {
                       className={`flex justify-between px-4 py-2 ${
                         currentWinCondition === condition.name
                           ? "bg-black text-white border-2 border-white rounded-xl transition-all duration-500"
-                          : "text-black transition-all duration-500"
+                          : "text-black rounded-xl border-2 border-white transition-all duration-500"
                       }`}
                     >
                       <span className="font-bold">{condition.name}</span>
@@ -360,14 +360,16 @@ const MiniGame = () => {
                 ))}
               </div>
               {/* Draw/Deal Button */}
-              <div>
-                <div></div>
-                <button
-                  className="bg-black text-white px-6 py-2 rounded text-2xl font-bold shadow-lg jelly-btn"
-                  onClick={handleDrawDeal}
-                >
-                  {gamePhase === 1 ? "DRAW" : "DEAL"}
-                </button>
+              <div className="w-full">
+                <div class="w-full h-[200px] bg-slate-500 flex rounded-t-[100%] justify-center relative bg-bottom transition-all duration-500">
+                  <div class="w-[150px] h-[105px] absolute bottom-[55px] m-auto border-black border-[1.5px] bg-[#393939] rounded-[100%] z-[3] flex shadow-[0px_7.5px_#113870,0px_10px_25px_rgba(0,0,0,0.7)] rotate-x-25 transition-all duration-500"></div>
+                  <button
+                    className="m-0 font-bold text-[1.75rem] border-2 border-black rounded-[100%] w-[130px] h-[85px] p-[1.5rem] shadow-[0px_7.5px_#480101,0px_10px_25px_rgba(0,0,0,0.7)] hover:shadow-[0px_0px_black,0px_10px_25px_rgba(144,4,4,0.7)] transition-all duration-500 leading-[2rem] mt-[35px] text-white z-10 bg-[#900404] hover:bg-[#ab0707] rotate-x-25 hover:translate-y-[7.5px] text-double-stroke"
+                    onClick={handleDrawDeal}
+                  >
+                    {gamePhase === 1 ? "DRAW" : "DEAL"}
+                  </button>
+                </div>
               </div>
               {/* Game Controls */}
               <div className="flex flex-row gap-2 align-center items-center my-5">
@@ -385,7 +387,7 @@ const MiniGame = () => {
                     </button>
                   ))}
                 {/* Always show the bet amount */}
-                <div className="flex flex-col items-center font-bold text-black mx-5">
+                <div className="flex flex-col items-center font-bold text-black mx-2 border-2 border-black bg-white px-5 rounded-xl shadow-[5px_5px_rgb(0,0,0,1)]">
                   <span className="translate-y-3">Bet</span>
                   <span className="text-[2rem]">{bet}</span>
                 </div>
@@ -403,7 +405,7 @@ const MiniGame = () => {
                     </button>
                   ))}
               </div>
-              <div className="absolute right-5 m-auto text-black flex flex-col items-center justify-center w-[200px]">
+              <div className="absolute right-5 m-auto text-black flex flex-col items-center justify-center w-[200px] z-10">
                 <div className="m-auto rounded-xl bg-white shadow-[5px_5px_rgb(0,0,0,1)] border-black border-2 text-center w-[200px] p-2 mb-4">
                   <h2 className="text-[1.5rem] font-bold">
                     Credits: <u>{credits}</u>
