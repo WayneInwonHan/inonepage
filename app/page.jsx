@@ -9,7 +9,6 @@ import ProjectCard from "@/components/ProjectCard";
 import Link from "next/link";
 import Image from "next/image";
 import { Button } from "../components/ui/button";
-import "../components/JellyButton.css";
 
 import { FaGhost, FaEnvelope } from "react-icons/fa";
 

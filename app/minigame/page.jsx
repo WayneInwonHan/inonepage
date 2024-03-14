@@ -1,8 +1,6 @@
 "use client";
 // pages/minigame.jsx
 import React, { useState } from "react";
-import { Button } from "../../components/ui/button";
-import "../../components/JellyButton.css";
 
 // Helper function to create a deck of cards
 const createDeck = () => {
@@ -60,19 +58,6 @@ const getRandomCard = (excludedCards = new Set()) => {
   return card;
 };
 
-const drawUniqueCard = (excludedCards) => {
-  let card;
-  let isUnique = false;
-  while (!isUnique) {
-    card = getRandomCard();
-    const cardKey = card.rank + card.suit;
-    if (!excludedCards.includes(cardKey)) {
-      isUnique = true;
-    }
-  }
-  return card;
-};
-
 const Card = ({ card, isSelected, onSelect }) => {
   const select = () => onSelect(card);
 
@@ -87,17 +72,21 @@ const Card = ({ card, isSelected, onSelect }) => {
 
   return (
     <div
-      className={`relative flex flex-col justify-center items-center m-1 p-2 rounded-lg shadow-md cursor-pointer w-[50px] h-[75px] bg-white ${cardColor} ${selectedStyles}`}
+      className={`relative flex flex-col justify-center items-center m-1 p-2 rounded-lg shadow-md cursor-pointer w-[75px] h-[100px] hover:translate-y-1 transition-all duration-300 bg-white ${cardColor} ${selectedStyles}`}
       onClick={select}
     >
-      <div className="absolute font-bold top-1 left-1">{card.rank}</div>
+      <div className="absolute text-[1.25rem] font-bold top-1 left-1">
+        {card.rank}
+      </div>
       {isSelected && (
-        <span className="text-[13px] text-red-500 font-bold absolute bottom-[-15px] bg-white px-1">
+        <span className="text-[1rem] text-red-500 font-bold absolute bottom-[-30px] px-1">
           HELD
         </span>
       )}
-      <div className="text-3xl">{card.suit}</div>
-      <div className="absolute font-bold bottom-1 right-1">{card.rank}</div>
+      <div className="text-[2rem]">{card.suit}</div>
+      <div className="absolute text-[1.25rem] font-bold bottom-1 right-1">
+        {card.rank}
+      </div>
     </div>
   );
 };
@@ -313,81 +302,54 @@ const MiniGame = () => {
       <div className="w-full h-full flex flex-col">
         <div className="page-window">
           <div className="page-window-bar">
-            <div></div>
+            <div>MINIGAME:INONEPOKER</div>
             <div className="page-window-bar-buttons">
               <div className="page-window-bar-button"></div>
               <div className="page-window-bar-button"></div>
             </div>
           </div>
-          <div className="page-window-content p-5 justify-center align-center">
-            <div className="flex flex-col justify-center items-center">
+          <div className="page-window-content p-5 flex justify-center">
+            <div className="relative flex flex-col justify-center items-center w-full max-w-[1000px]">
+              {/* Logo */}
+              <div className="m-auto rounded-xl bg-white shadow-[5px_5px_rgb(0,0,0,1)] border-black border-2 rotate-3 hover:rotate-0 transition-all duration-300">
+                <div className="px-4 py-2">
+                  <h1 className="text-black font-bold text-[2rem] text-stroke">
+                    IN<span className="text-red-500">ONE</span>POKER
+                  </h1>
+                </div>
+              </div>
               {/* Score Table */}
-              <div className="text-black mb-4">
-                <h2 className="text-2xl font-bold mb-2">Winning Conditions</h2>
-                <div className="grid grid-cols-2 gap-2">
+              <div className="absolute left-5 m-auto text-black text-[16px] rounded-xl bg-white shadow-[5px_5px_rgb(0,0,0,1)] border-black border-2">
+                <div className="grid grid-cols-1 gap-0">
                   {winningConditions.map((condition, index) => (
                     <div
                       key={index}
-                      className={`flex justify-between p-2 ${
+                      className={`flex justify-between px-4 py-2 ${
                         currentWinCondition === condition.name
-                          ? "bg-black text-white"
-                          : "bg-white text-black"
+                          ? "bg-black text-white border-2 border-white rounded-xl transition-all duration-500"
+                          : "text-black transition-all duration-500"
                       }`}
                     >
-                      <span>{condition.name}</span>
-                      <span>x{condition.multiplier}</span>
+                      <span className="font-bold">{condition.name}</span>
+                      <span className="ml-2 font-bold text-white text-stroke text-[16px] rounded-lg">
+                        X {condition.multiplier}
+                      </span>
                     </div>
                   ))}
                 </div>
               </div>
-              {/* Game Controls */}
-
-              <div className="flex flex-row gap-2 align-center items-center">
-                {/* Conditionally render bet decrement buttons only in phase 1 */}
-                {gamePhase === 1 &&
-                  [-10, -5, -1].map((change) => (
-                    <button
-                      className="bg-black font-bold text-white w-10 h-10 rounded-sm jelly-btn"
-                      key={change}
-                      onClick={() => handleBetChange(change)}
-                      disabled={bet + change < 1}
-                      style={{ opacity: bet + change < 1 ? 0.5 : 1 }}
-                    >
-                      {change}
-                    </button>
-                  ))}
-
-                {/* Always show the bet amount */}
-                <div className="font-bold text-black text-[3rem] mx-5">
-                  <span>Bet</span>
-                  <span>{bet}</span>
-                </div>
-
-                {/* Conditionally render bet increment buttons only in phase 1 */}
-                {gamePhase === 1 &&
-                  [1, 5, 10].map((change) => (
-                    <button
-                      className="bg-black font-bold text-white w-10 h-10 rounded-sm jelly-btn"
-                      key={change}
-                      onClick={() => handleBetChange(change)}
-                      disabled={bet + change > 50}
-                      style={{ opacity: bet + change > 50 ? 0.5 : 1 }}
-                    >
-                      +{change}
-                    </button>
-                  ))}
-              </div>
-              <div className="text-black">
+              <div className="text-black m-2 h-[30px]">
                 {gamePhase === 1 ? (
-                  <h2>{currentWinCondition}</h2>
+                  <h2 className="text-[1.25rem] text-white text-stroke">
+                    {currentWinCondition}
+                  </h2>
                 ) : (
                   <>
-                    <h2>CLICK ON CARDS TO HOLD</h2>
-                    <h2>{currentWinCondition}</h2>
+                    <h2 className="text-[1.25rem]">CLICK ON CARDS TO HOLD</h2>
                   </>
                 )}
               </div>
-              <div className="flex mb-2 justify-center">
+              <div className="flex mb-2 items-center justify-center h-[150px]">
                 {currentHand.map((card, index) => (
                   <Card
                     key={index}
@@ -398,16 +360,67 @@ const MiniGame = () => {
                 ))}
               </div>
               {/* Draw/Deal Button */}
-              <Button
-                className="bg-black text-white px-6 py-2 rounded text-2xl font-bold shadow-lg jelly-btn"
-                onClick={handleDrawDeal}
-              >
-                {gamePhase === 1 ? "DRAW" : "DEAL"}
-              </Button>
-              <div className="text-black mt-4">
-                <h2 className="text-xl font-bold">Credits: {credits}</h2>
+              <div>
+                <div></div>
+                <button
+                  className="bg-black text-white px-6 py-2 rounded text-2xl font-bold shadow-lg jelly-btn"
+                  onClick={handleDrawDeal}
+                >
+                  {gamePhase === 1 ? "DRAW" : "DEAL"}
+                </button>
               </div>
-              <div className="text-black font-bold">Wins: {winCount}</div>
+              {/* Game Controls */}
+              <div className="flex flex-row gap-2 align-center items-center my-5">
+                {/* Conditionally render bet decrement buttons only in phase 1 */}
+                {gamePhase === 1 &&
+                  [-10, -5, -1].map((change) => (
+                    <button
+                      className="bg-black font-bold text-white w-10 h-10 rounded-full jelly-btn"
+                      key={change}
+                      onClick={() => handleBetChange(change)}
+                      disabled={bet + change < 1}
+                      style={{ opacity: bet + change < 1 ? 0.5 : 1 }}
+                    >
+                      {change}
+                    </button>
+                  ))}
+                {/* Always show the bet amount */}
+                <div className="flex flex-col items-center font-bold text-black mx-5">
+                  <span className="translate-y-3">Bet</span>
+                  <span className="text-[2rem]">{bet}</span>
+                </div>
+                {/* Conditionally render bet increment buttons only in phase 1 */}
+                {gamePhase === 1 &&
+                  [1, 5, 10].map((change) => (
+                    <button
+                      className="bg-black font-bold text-white w-10 h-10 rounded-full jelly-btn"
+                      key={change}
+                      onClick={() => handleBetChange(change)}
+                      disabled={bet + change > 50}
+                      style={{ opacity: bet + change > 50 ? 0.5 : 1 }}
+                    >
+                      +{change}
+                    </button>
+                  ))}
+              </div>
+              <div className="absolute right-5 m-auto text-black flex flex-col items-center justify-center w-[200px]">
+                <div className="m-auto rounded-xl bg-white shadow-[5px_5px_rgb(0,0,0,1)] border-black border-2 text-center w-[200px] p-2 mb-4">
+                  <h2 className="text-[1.5rem] font-bold">
+                    Credits: <u>{credits}</u>
+                  </h2>
+                  <h2 className="text-[1rem] font-normal">Wins: {winCount}</h2>
+                </div>
+                <div className="m-auto rounded-xl bg-white shadow-[5px_5px_rgb(0,0,0,1)] border-black border-2 text-center w-[200px] p-2">
+                  <h2 className="font-bold text-xl">How to Play</h2>
+                  <p className="text-[12px]">
+                    Hit <span className="m-1 font-bold">DRAW</span> for your
+                    cards, click any to
+                    <span className="m-1 font-bold">HOLD</span>, then
+                    <span className="m-1 font-bold">DEAL</span>
+                    to swap the rest. Match the win conditions to score!
+                  </p>
+                </div>
+              </div>
             </div>
           </div>
         </div>
