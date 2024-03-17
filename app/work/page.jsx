@@ -112,7 +112,7 @@ const Work = () => {
             </div>
           </div>
           <div className="page-window-content p-5">
-            <div className="max-w-[400px] mx-auto xl:mx-0 text-center xl:text-left mb-12 xl:h-[400px] flex flex-col justify-center items-center xl:items-start">
+            <div className="max-w-[400px] h-full mx-auto xl:mx-0 text-center xl:text-left flex flex-col justify-center items-center xl:items-start">
               <h1 className="section-title mb-4">Recent Works</h1>
               <p className="subtitle mb-8">
                 Lorem, ipsum dolor sit amet consectetur adipisicing elit.
