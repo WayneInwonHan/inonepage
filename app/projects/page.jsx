@@ -6,12 +6,6 @@ import ProjectCard from "@/components/ProjectCard";
 
 import projectData from "@/lib/projectData";
 
-// remove category duplicates
-const uniqueCategories = [
-  "all projects",
-  ...new Set(projectData.map((item) => item.category)),
-];
-
 const getAllCategories = () => {
   const allCategories = projectData.reduce((acc, item) => {
     const categories = Array.isArray(item.category)

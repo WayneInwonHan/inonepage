@@ -15,6 +15,14 @@ const Doodle = () => {
           <div className="page-window-content p-5 justify-center align-center bg-gradient-to-r from-[#2D004B] to-black">
             <div className="flex justify-center items-center">
               <div className="noise-effect"></div>
+              <div className="">
+                <div className="grid grid-cols-4">
+                  <div>
+                    <div></div>
+                    <div></div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
