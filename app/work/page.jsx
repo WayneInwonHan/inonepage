@@ -22,21 +22,30 @@ const Work = () => {
       <div className="w-1/3 h-full flex flex-col">
         <div className="page-window">
           <div className="page-window-bar">
-            <div></div>
+            <div>Recent Works</div>
             <div className="page-window-bar-buttons">
               <div className="page-window-bar-button"></div>
               <div className="page-window-bar-button"></div>
             </div>
           </div>
-          <div className="page-window-content p-5">
-            <div className="max-w-[400px] h-full mx-auto xl:mx-0 text-center xl:text-left flex flex-col justify-center items-center xl:items-start">
-              <h1 className="section-title mb-4">Recent Works</h1>
-              <p className="subtitle mb-8">
-                Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-              </p>
-              <Link href="/projects">
-                <Button className="jelly-btn">All projects</Button>
-              </Link>
+          <div className="page-window-content">
+            <div className="max-w-[400px] h-full mx-auto xl:mx-0 text-center bg-gradient-to-r from-[#2D004B] to-black xl:text-left flex flex-col justify-center items-center xl:items-start">
+              <div className="flex justify-center">
+                <div className="noise-effect"></div>
+                <div className="flex flex-col p-5 z-10">
+                  <h1 className="text-white font-bold text-[2rem] mb-4">
+                    Recent Works
+                  </h1>
+                  <p className="text-white mb-8">
+                    Lorem, ipsum dolor sit amet consectetur adipisicing elit.
+                  </p>
+                  <Link href="/projects">
+                    <Button className="jelly-btn bg-white text-black hover:bg-white hover:text-black">
+                      All projects
+                    </Button>
+                  </Link>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -44,15 +53,14 @@ const Work = () => {
       <div className="w-2/3 h-full flex flex-col">
         <div className="page-window">
           <div className="page-window-bar">
-            <div></div>
+            <div>Showcase</div>
             <div className="page-window-bar-buttons">
               <div className="page-window-bar-button"></div>
               <div className="page-window-bar-button"></div>
             </div>
           </div>
-          <div className="page-window-content p-5 justify-center align-center bg-gradient-to-r from-[#2D004B] to-black">
+          <div className="page-window-content p-5 justify-center align-center">
             <div className="flex justify-center">
-              <div className="noise-effect"></div>
               <div className="flex items-center xl:max-w-[700px] xl:absolute h-full right-2 top-0 z-10">
                 <Swiper
                   className="h-[500px]"
