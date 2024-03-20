@@ -2,8 +2,6 @@ import React from "react";
 
 import Link from "next/link";
 
-import "./MinigameWindow.css";
-
 const MinigameWindow = () => {
   return (
     <div>
@@ -11,7 +9,7 @@ const MinigameWindow = () => {
         <div className="h-full w-full">
           <div className="flex flex-col justify-center items-center gap-2 p-2">
             <div className="relative flex">
-              <div className="relative flex flex-col rotate-[-15deg] translate-x-[10px] justify-center items-center text-black m-1 p-2 rounded-lg shadow-md hover:shadow border-1 cursor-pointer w-[75px] h-[100px] hover:translate-y-1 transition-all duration-300 bg-white">
+              <div className="relative flex flex-col rotate-[-15deg] translate-x-[10px] justify-center items-center text-black m-1 p-2 rounded-lg shadow-md hover:shadow border-2 border-black cursor-pointer w-[75px] h-[100px] hover:translate-y-1 transition-all duration-300 bg-white">
                 <div className="absolute text-[1.25rem] font-bold top-1 left-1">
                   A
                 </div>
@@ -20,7 +18,7 @@ const MinigameWindow = () => {
                   A
                 </div>
               </div>
-              <div className="relative flex flex-col rotate-[15deg] translate-x-[-10px] justify-center items-center text-red-500 m-1 p-2 rounded-lg shadow-md hover:shadow border-1 cursor-pointer w-[75px] h-[100px] hover:translate-y-1 transition-all duration-300 bg-white">
+              <div className="relative flex flex-col rotate-[15deg] translate-x-[-10px] justify-center items-center text-red-500 m-1 p-2 rounded-lg shadow-md hover:shadow border-2 border-black cursor-pointer w-[75px] h-[100px] hover:translate-y-1 transition-all duration-300 bg-white">
                 <div className="absolute text-[1.25rem] font-bold top-1 left-1">
                   A
                 </div>
