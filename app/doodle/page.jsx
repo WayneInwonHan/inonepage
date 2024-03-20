@@ -2,36 +2,30 @@
 
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
-import doodleData from "../../lib/doodleData"; // Ensure this path is correct for your project structure
-
+import doodleData from "../../lib/doodleData";
 import { FaArrowRight, FaArrowLeft } from "react-icons/fa";
 
 const Doodle = () => {
   const [selectedImg, setSelectedImg] = useState(null);
 
-  // Function to open modal and display the selected image
   const handleOpenModal = (index) => {
     setSelectedImg(index);
   };
 
-  // Function to close the modal
   const handleCloseModal = () => {
     setSelectedImg(null);
   };
 
-  // Function to navigate to the next image
   const handleNext = () => {
     setSelectedImg((prevIndex) => (prevIndex + 1) % doodleData.length);
   };
 
-  // Function to navigate to the previous image
   const handlePrev = () => {
     setSelectedImg(
       (prevIndex) => (prevIndex - 1 + doodleData.length) % doodleData.length,
     );
   };
 
-  // Effect to lock the body scroll when the modal is open, preventing background scroll
   useEffect(() => {
     const originalStyle = window.getComputedStyle(document.body).overflow;
     if (selectedImg !== null) {
@@ -40,7 +34,6 @@ const Doodle = () => {
       document.body.style.overflow = originalStyle;
     }
 
-    // Cleanup function to reset the overflow style
     return () => (document.body.style.overflow = originalStyle);
   }, [selectedImg]);
 
@@ -74,7 +67,7 @@ const Doodle = () => {
                         className="transition-all duration-500"
                       />
                       <div className="absolute inset-0 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 opacity-0 group-hover:opacity-20 transition-opacity duration-500"></div>
-                      <h2 className="absolute bottom-0 left-0 w-full text-white text-left pl-2 font-bold opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-[2]">
+                      <h2 className="absolute bottom-0 left-0 w-full text-white text-left text-[1.5rem] pl-2 font-bold opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-[2]">
                         {doodle.title}
                       </h2>
                     </div>

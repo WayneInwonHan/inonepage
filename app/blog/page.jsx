@@ -1,4 +1,19 @@
+"use client";
+
 import React from "react";
+import { useState } from "react";
+
+import mySceneData from "../../lib/mySceneData";
+import devScreenData from "../../lib/devScreenData";
+
+import Link from "next/link";
+import Image from "next/image";
+
+import { Swiper, SwiperSlide } from "swiper/react";
+import "swiper/css";
+import "swiper/css/pagination";
+import { Pagination } from "swiper/modules";
+
 import "../../components/SystemCard.css";
 
 import {
@@ -27,6 +42,14 @@ export const systemData = [
 ];
 
 const Perspective = () => {
+  // State to manage active tab
+  const [activeTab, setActiveTab] = useState("tab1");
+
+  // Function to change the active tab
+  const handleTabChange = (tab) => {
+    setActiveTab(tab);
+  };
+
   return (
     <div className="w-full h-full gap-6 flex flex-col">
       <div className="w-full h-1/4 flex flex-col">
@@ -89,9 +112,106 @@ const Perspective = () => {
               <div className="page-window-bar-button"></div>
             </div>
           </div>
-          <div className="page-window-content p-5">
+          <div className="page-window-content p-5 overflow-y-scroll">
             <div className="aurora-effect"></div>
+            {/* Tab Headers */}
+            <div className="flex border-b">
+              <button
+                className={`py-2 px-4 text-sm font-medium ${
+                  activeTab === "tab1"
+                    ? "border-b-2 border-blue-500 text-blue-600"
+                    : "text-gray-500"
+                }`}
+                onClick={() => handleTabChange("tab1")}
+              >
+                Tab 1
+              </button>
+              <button
+                className={`py-2 px-4 text-sm font-medium ${
+                  activeTab === "tab2"
+                    ? "border-b-2 border-blue-500 text-blue-600"
+                    : "text-gray-500"
+                }`}
+                onClick={() => handleTabChange("tab2")}
+              >
+                Tab 2
+              </button>
+            </div>
+
+            {/* Tab Content */}
+            <div>
+              {activeTab === "tab1" && (
+                <div className="p-4">
+                  <div>subtitle</div>
+                  <Swiper
+                    slidesPerView={1}
+                    breakpoints={{
+                      640: { slidesPerView: 3 },
+                      1400: { slidesPerView: 4 },
+                    }}
+                    spaceBetween={30}
+                    modules={[Pagination]}
+                    pagination={{
+                      clickable: true,
+                    }}
+                    className="h-[350px]"
+                  >
+                    {devScreenData.map((devScreen, index) => {
+                      return (
+                        <SwiperSlide key={index}>
+                          <div>
+                            <div className="shine-eff"></div>
+                            <div>
+                              <h2>{devScreen.title}</h2>
+                            </div>
+                            <Image
+                              src={devScreen.image}
+                              alt={devScreen.title}
+                              layout="fill"
+                              objectFit="cover"
+                              className="transition-all duration-500"
+                            />
+                          </div>
+                        </SwiperSlide>
+                      );
+                    })}
+                  </Swiper>
+                </div>
+              )}
+              {activeTab === "tab2" && (
+                <div className="p-4">
+                  <div>subtitle</div>
+                  <div className="border-t-[1px] border-black">
+                    {mySceneData.map((myScene, index) => {
+                      return (
+                        <div className="border-b-[1px] border-black">
+                          <Link href={myScene.url}>
+                            <div>
+                              <h1>{myScene.title}</h1>
+                              <h3>{myScene.subtitle}</h3>
+                            </div>
+                            <div>
+                              <h2>{myScene.date}</h2>
+                            </div>
+                          </Link>
+                          <div>
+                            <Image
+                              src={myScene.image}
+                              alt={myScene.title}
+                              layout="fill"
+                              objectFit="cover"
+                              className="transition-all duration-500"
+                            />
+                          </div>
+                        </div>
+                      );
+                    })}
+                  </div>
+                </div>
+              )}
+            </div>
           </div>
+          <div></div>
         </div>
       </div>
     </div>

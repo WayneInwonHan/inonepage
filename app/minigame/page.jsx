@@ -72,7 +72,7 @@ const Card = ({ card, isSelected, onSelect }) => {
 
   return (
     <div
-      className={`relative flex flex-col justify-center items-center m-1 p-2 rounded-lg shadow-md cursor-pointer w-[75px] h-[100px] hover:translate-y-1 transition-all duration-300 bg-white ${cardColor} ${selectedStyles}`}
+      className={`relative flex flex-col justify-center items-center m-1 p-2 rounded-lg shadow-md hover:shadow border-1 cursor-pointer w-[75px] h-[100px] hover:translate-y-1 transition-all duration-300 bg-white ${cardColor} ${selectedStyles}`}
       onClick={select}
     >
       <div className="absolute text-[1.25rem] font-bold top-1 left-1">
@@ -311,7 +311,7 @@ const MiniGame = () => {
           <div className="page-window-content p-5 flex justify-center">
             <div className="relative flex flex-col justify-center items-center w-full max-w-[1000px]">
               {/* Logo */}
-              <div className="m-auto rounded-xl bg-white shadow-[5px_5px_rgb(0,0,0,1)] border-black border-2 rotate-3 hover:rotate-0 transition-all duration-300">
+              <div className="m-auto rounded-xl bg-white shadow-[5px_5px_rgb(0,0,0,1)] border-black border-2 transition-all duration-300">
                 <div className="px-4 py-2">
                   <h1 className="text-black font-bold text-[2rem] text-stroke">
                     IN<span className="text-red-500">ONE</span>POKER
@@ -340,12 +340,14 @@ const MiniGame = () => {
               </div>
               <div className="text-black m-2 h-[30px]">
                 {gamePhase === 1 ? (
-                  <h2 className="text-[1.25rem] text-white text-stroke">
+                  <h2 className="text-[1.25rem] text-white text-stroke m-[1rem] font-bold">
                     {currentWinCondition}
                   </h2>
                 ) : (
                   <>
-                    <h2 className="text-[1.25rem]">CLICK ON CARDS TO HOLD</h2>
+                    <h2 className="text-[1.25rem] m-[1rem] font-bold">
+                      <u>CLICK ON CARDS TO HOLD</u>
+                    </h2>
                   </>
                 )}
               </div>
@@ -361,10 +363,10 @@ const MiniGame = () => {
               </div>
               {/* Draw/Deal Button */}
               <div className="w-full">
-                <div class="w-full h-[200px] bg-slate-500 flex rounded-t-[100%] justify-center relative bg-bottom transition-all duration-500">
-                  <div class="w-[150px] h-[105px] absolute bottom-[55px] m-auto border-black border-[1.5px] bg-[#393939] rounded-[100%] z-[3] flex shadow-[0px_7.5px_#113870,0px_10px_25px_rgba(0,0,0,0.7)] rotate-x-25 transition-all duration-500"></div>
+                <div class="w-full h-[200px] bg-slate-300 flex rounded-t-[100%] justify-center relative bg-bottom transition-all duration-500">
+                  <div class="w-[150px] h-[105px] absolute bottom-[55px] m-auto border-black border-[1.5px] bg-[#393939] rounded-[100%] z-[3] flex shadow-[0px_7.5px_rgba(0,0,0,0.2),0px_10px_25px_rgba(0,0,0,0.7)] rotate-x-25 transition-all duration-500"></div>
                   <button
-                    className="m-0 font-bold text-[1.75rem] border-2 border-black rounded-[100%] w-[130px] h-[85px] p-[1.5rem] shadow-[0px_7.5px_#480101,0px_10px_25px_rgba(0,0,0,0.7)] hover:shadow-[0px_0px_black,0px_10px_25px_rgba(144,4,4,0.7)] transition-all duration-500 leading-[2rem] mt-[35px] text-white z-10 bg-[#900404] hover:bg-[#ab0707] rotate-x-25 hover:translate-y-[7.5px] text-double-stroke"
+                    className="m-0 font-bold text-[1.25rem] border-2 border-black rounded-[100%] w-[130px] h-[85px] p-[1.5rem] shadow-[0px_7.5px_#480101,0px_10px_25px_rgba(0,0,0,0.7)] hover:shadow-[0px_0px_black,0px_10px_25px_rgba(144,4,4,0.7)] transition-all duration-500 leading-[2rem] mt-[35px] text-white z-10 bg-[#900404] hover:bg-[#ab0707] rotate-x-25 hover:translate-y-[7.5px] text-double-stroke"
                     onClick={handleDrawDeal}
                   >
                     {gamePhase === 1 ? "DRAW" : "DEAL"}

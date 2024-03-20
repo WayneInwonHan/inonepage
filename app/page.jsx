@@ -20,6 +20,7 @@ import LatestPostCard from "@/components/LatestPostCard";
 
 import VoxelAvatarLoader from "../components/AvatarLoader";
 import dynamic from "next/dynamic";
+import MinigameWindow from "@/components/MinigameWindow";
 
 const VoxelAvatar = dynamic(() => import("../components/Avatar"), {
   ssr: false,
@@ -133,9 +134,7 @@ export default function Home() {
             </div>
           </div>
           <div className="page-window-content">
-            <Link href="/minigame">
-              <div className="h-full w-full"></div>
-            </Link>
+            <MinigameWindow />
           </div>
         </div>
       </div>

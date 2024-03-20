@@ -4,14 +4,14 @@ import { usePathname } from "next/navigation";
 import Link from "next/link";
 
 // icons
-import { FaHome, FaUser, FaCode, FaArchive, FaMagic } from "react-icons/fa";
+import { FaHome, FaUser, FaCode, FaLightbulb, FaMagic } from "react-icons/fa";
 
 // nav data
 export const navData = [
   { name: "home", path: "/", icon: <FaHome /> },
   { name: "about", path: "/about", icon: <FaUser /> },
   { name: "work", path: "/work", icon: <FaCode /> },
-  { name: "perspective", path: "/blog", icon: <FaArchive /> },
+  { name: "perspective", path: "/blog", icon: <FaLightbulb /> },
   { name: "doodle", path: "/doodle", icon: <FaMagic /> },
 ];
 
