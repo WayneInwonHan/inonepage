@@ -50,6 +50,16 @@ const Perspective = () => {
     setActiveTab(tab);
   };
 
+  const [cursorPosition, setCursorPosition] = useState({ x: 0, y: 0 });
+
+  const handleMouseMove = (e) => {
+    const boundingRect = e.currentTarget.getBoundingClientRect();
+    setCursorPosition({
+      x: e.clientX - boundingRect.left,
+      y: e.clientY - boundingRect.top,
+    });
+  };
+
   return (
     <div className="w-full h-full gap-6 flex flex-col">
       <div className="w-full h-1/4 flex flex-col">
@@ -182,30 +192,45 @@ const Perspective = () => {
                 <div className="p-4">
                   <div>subtitle</div>
                   <div className="border-t-[1px] border-black">
-                    {mySceneData.map((myScene, index) => {
-                      return (
-                        <div className="border-b-[1px] border-black">
-                          <Link href={myScene.url}>
-                            <div>
-                              <h1>{myScene.title}</h1>
-                              <h3>{myScene.subtitle}</h3>
+                    {mySceneData.map((myScene, index) => (
+                      <div
+                        key={index}
+                        className="relative border-b-[1px] border-black group"
+                      >
+                        {/* Custom hover effect link */}
+                        <div className="hover-effect">
+                          <Link
+                            href={myScene.url}
+                            className="relative flex flex-row justify-between items-center overflow-hidden"
+                          >
+                            <div className="absolute w-full h-full bg-black -translate-x-[100%] group-hover:-translate-x-[0%] transition-all duration-500"></div>
+                            <div className="flex flex-col z-10">
+                              <h1 className="font-bold text-[2.25rem] text-black group-hover:text-white transition-colors duration-500">
+                                {myScene.title}
+                              </h1>
+                              <h2 className="text-[1.25rem] text-black group-hover:text-white transition-colors duration-500">
+                                {myScene.subtitle}
+                              </h2>
                             </div>
-                            <div>
-                              <h2>{myScene.date}</h2>
+                            <div className="z-10">
+                              <h3 className="text-[1em] text-black group-hover:text-white transition-colors duration-500">
+                                {myScene.date}
+                              </h3>
                             </div>
                           </Link>
-                          <div>
-                            <Image
-                              src={myScene.image}
-                              alt={myScene.title}
-                              layout="fill"
-                              objectFit="cover"
-                              className="transition-all duration-500"
-                            />
-                          </div>
                         </div>
-                      );
-                    })}
+                        <div className="absolute top-0 left-0 w-[200px] h-[150px] opacity-0 group-hover:opacity-100 border-2 border-black rounded-sm overflow-hidden">
+                          <Image
+                            src={myScene.image}
+                            alt={myScene.title}
+                            objectFit="cover"
+                            className="w-full h-full transition-all duration-500"
+                            width={200}
+                            height={150}
+                          />
+                        </div>
+                      </div>
+                    ))}
                   </div>
                 </div>
               )}
