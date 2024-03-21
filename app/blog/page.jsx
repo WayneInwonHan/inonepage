@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 
 import mySceneData from "../../lib/mySceneData";
 import devScreenData from "../../lib/devScreenData";
@@ -42,23 +42,31 @@ export const systemData = [
 ];
 
 const Perspective = () => {
-  // State to manage active tab
   const [activeTab, setActiveTab] = useState("tab1");
 
-  // Function to change the active tab
   const handleTabChange = (tab) => {
     setActiveTab(tab);
   };
 
-  const [cursorPosition, setCursorPosition] = useState({ x: 0, y: 0 });
+  const followCursorRef = useRef(null);
 
-  const handleMouseMove = (e) => {
-    const boundingRect = e.currentTarget.getBoundingClientRect();
-    setCursorPosition({
-      x: e.clientX - boundingRect.left,
-      y: e.clientY - boundingRect.top,
-    });
-  };
+  useEffect(() => {
+    const handleMouseMove = (event) => {
+      if (followCursorRef.current) {
+        const mouseX = event.pageX;
+        const mouseY = event.pageY;
+
+        followCursorRef.current.style.left = `${mouseX}px`;
+        followCursorRef.current.style.top = `${mouseY}px`;
+      }
+    };
+
+    document.addEventListener("mousemove", handleMouseMove);
+
+    return () => {
+      document.removeEventListener("mousemove", handleMouseMove);
+    };
+  }, []);
 
   return (
     <div className="w-full h-full gap-6 flex flex-col">
@@ -203,7 +211,7 @@ const Perspective = () => {
                             href={myScene.url}
                             className="relative flex flex-row justify-between items-center overflow-hidden"
                           >
-                            <div className="absolute w-full h-full bg-black -translate-x-[100%] group-hover:-translate-x-[0%] transition-all duration-500"></div>
+                            <div className="absolute w-full h-full bg-black -translate-x-[100%] group-hover:-translate-x-[0%] transition-all duration-700"></div>
                             <div className="flex flex-col z-10">
                               <h1 className="font-bold text-[2.25rem] text-black group-hover:text-white transition-colors duration-500">
                                 {myScene.title}
@@ -219,7 +227,10 @@ const Perspective = () => {
                             </div>
                           </Link>
                         </div>
-                        <div className="absolute top-0 left-0 w-[200px] h-[150px] opacity-0 group-hover:opacity-100 border-2 border-black rounded-sm overflow-hidden">
+                        <div
+                          ref={followCursorRef}
+                          className="absolute w-[200px] h-[150px] opacity-0 group-hover:opacity-100 border-2 border-black rounded-sm overflow-hidden transition-all duration-500"
+                        >
                           <Image
                             src={myScene.image}
                             alt={myScene.title}
