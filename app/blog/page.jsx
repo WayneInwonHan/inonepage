@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { useState, useEffect, useRef } from "react";
+import { useState } from "react";
 
 import mySceneData from "../../lib/mySceneData";
 import devScreenData from "../../lib/devScreenData";
@@ -42,32 +42,13 @@ export const systemData = [
 ];
 
 const Perspective = () => {
+  // State to manage active tab
   const [activeTab, setActiveTab] = useState("tab1");
 
+  // Function to change the active tab
   const handleTabChange = (tab) => {
     setActiveTab(tab);
   };
-
-  const followCursorRef = useRef(null);
-
-  useEffect(() => {
-    const handleMouseMove = (event) => {
-      if (followCursorRef.current) {
-        const mouseX = event.pageX;
-        const mouseY = event.pageY;
-
-        followCursorRef.current.style.left = `${mouseX}px`;
-        followCursorRef.current.style.top = `${mouseY}px`;
-      }
-    };
-
-    document.addEventListener("mousemove", handleMouseMove);
-
-    return () => {
-      document.removeEventListener("mousemove", handleMouseMove);
-    };
-  }, []);
-
   return (
     <div className="w-full h-full gap-6 flex flex-col">
       <div className="w-full h-1/4 flex flex-col">
@@ -205,32 +186,28 @@ const Perspective = () => {
                         key={index}
                         className="relative border-b-[1px] border-black group"
                       >
-                        {/* Custom hover effect link */}
                         <div className="hover-effect">
                           <Link
                             href={myScene.url}
                             className="relative flex flex-row justify-between items-center overflow-hidden"
                           >
-                            <div className="absolute w-full h-full bg-black -translate-x-[100%] group-hover:-translate-x-[0%] transition-all duration-700"></div>
-                            <div className="flex flex-col z-10">
-                              <h1 className="font-bold text-[2.25rem] text-black group-hover:text-white transition-colors duration-500">
+                            <div className="absolute w-full h-full bg-black -translate-x-[100%] group-hover:-translate-x-[0%] transition-all duration-500"></div>
+                            <div className="flex flex-col z-10 pl-4">
+                              <h1 className="font-bold text-[2.25rem] leading-0 text-black group-hover:text-white transition-colors duration-500">
                                 {myScene.title}
                               </h1>
-                              <h2 className="text-[1.25rem] text-black group-hover:text-white transition-colors duration-500">
+                              <h2 className="text-[1.25rem] text-black leading-0 group-hover:text-white transition-colors duration-500">
                                 {myScene.subtitle}
                               </h2>
                             </div>
-                            <div className="z-10">
+                            <div className="z-10 pr-4">
                               <h3 className="text-[1em] text-black group-hover:text-white transition-colors duration-500">
                                 {myScene.date}
                               </h3>
                             </div>
                           </Link>
                         </div>
-                        <div
-                          ref={followCursorRef}
-                          className="absolute w-[200px] h-[150px] opacity-0 group-hover:opacity-100 border-2 border-black rounded-sm overflow-hidden transition-all duration-500"
-                        >
+                        <div className="absolute top-0 left-0 w-[200px] h-[150px] opacity-0 group-hover:opacity-100 border-2 border-black rounded-sm overflow-hidden">
                           <Image
                             src={myScene.image}
                             alt={myScene.title}
