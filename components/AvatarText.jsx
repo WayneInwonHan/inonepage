@@ -23,7 +23,7 @@ const AvatarText = () => {
       if (!isDeleting && updatedText === fullText) {
         timer = setTimeout(() => {
           setIsDeleting(true);
-        }, 2000);
+        }, 4000);
       } else if (isDeleting && updatedText === "") {
         setIsDeleting(false);
         setLoopNum(loopNum + 1);

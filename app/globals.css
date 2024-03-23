@@ -17,6 +17,9 @@
 .swiper-rtl .swiper-button-prev:after {
   color: #2d004b;
 }
+.swiper-wrapper {
+  height: 250px !important;
+}
 
 @layer base {
   @layer base {

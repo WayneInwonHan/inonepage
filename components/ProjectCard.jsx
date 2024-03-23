@@ -47,7 +47,7 @@ const ProjectCard = ({ project }) => {
           </div>
         </div>
       </CardHeader>
-      <div className="h-full px-8 py-6">
+      <div className="h-full px-6 py-4">
         <div className="uppercase absolute top-4 left-5 mb-2">
           {Array.isArray(project.category) ? (
             project.category.map((category, categoryIndex) => (
@@ -64,8 +64,19 @@ const ProjectCard = ({ project }) => {
             </Badge>
           )}
         </div>
-        <h4 className="h4 mb-1">{project.name}</h4>
-        <p className="text-muted-foreground text-lg">{project.description}</p>
+        <h4 className="text-[1rem] font-bold mb-1">{project.name}</h4>
+        <p className="text-muted-foreground text-sm">{project.description}</p>
+        <div className="flex mt-2">
+          {Array.isArray(project.stack) ? (
+            project.stack.map((stack, stackIndex) => (
+              <div key={stackIndex} className="flex mr-1">
+                {stack}
+              </div>
+            ))
+          ) : (
+            <div className="flex">{project.stack}</div>
+          )}
+        </div>
       </div>
     </Card>
   );

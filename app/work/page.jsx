@@ -39,7 +39,7 @@ const Work = () => {
                   <p className="text-white mb-8 max-w-[500px]">
                     Lorem, ipsum dolor sit amet consectetur adipisicing elit.
                   </p>
-                  <Link href="/projects">
+                  <Link href="/works">
                     <Button className="jelly-btn bg-white text-black hover:bg-white hover:text-black">
                       All projects
                     </Button>

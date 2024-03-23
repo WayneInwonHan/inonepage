@@ -21,6 +21,8 @@ import {
   FaRegFileCode,
   FaHandPaper,
   FaLevelUpAlt,
+  FaDesktop,
+  FaFilm,
 } from "react-icons/fa";
 
 export const systemData = [
@@ -42,13 +44,11 @@ export const systemData = [
 ];
 
 const Perspective = () => {
-  // State to manage active tab
-  const [activeTab, setActiveTab] = useState("tab1");
-
-  // Function to change the active tab
+  const [activeTab, setActiveTab] = useState("DevScreen");
   const handleTabChange = (tab) => {
     setActiveTab(tab);
   };
+
   return (
     <div className="w-full h-full gap-6 flex flex-col">
       <div className="w-full h-1/4 flex flex-col">
@@ -114,34 +114,46 @@ const Perspective = () => {
           <div className="page-window-content p-5 overflow-y-scroll">
             <div className="aurora-effect"></div>
             {/* Tab Headers */}
-            <div className="flex border-b">
+            <div className="flex justify-center gap-2">
               <button
-                className={`py-2 px-4 text-sm font-medium ${
-                  activeTab === "tab1"
-                    ? "border-b-2 border-blue-500 text-blue-600"
-                    : "text-gray-500"
+                className={`py-2 px-4 text-[1.25rem] font-bold gap-2 flex items-center z-10 jelly-btn transition-all duration-500 ${
+                  activeTab === "DevScreen"
+                    ? "bg-black text-white rounded-full transition-all duration-500"
+                    : "bg-transparent rounded-none text-gray-400 hover:text-gray-500"
                 }`}
-                onClick={() => handleTabChange("tab1")}
+                onClick={() => handleTabChange("DevScreen")}
               >
-                Tab 1
+                <FaDesktop />
+                <h2>DevScreen</h2>
               </button>
               <button
-                className={`py-2 px-4 text-sm font-medium ${
-                  activeTab === "tab2"
-                    ? "border-b-2 border-blue-500 text-blue-600"
-                    : "text-gray-500"
+                className={`py-2 px-4 text-[1.25rem] font-bold gap-2 flex items-center z-10 jelly-btn transition-all duration-500 ${
+                  activeTab === "MyScene"
+                    ? "bg-black text-white rounded-full transition-all duration-500"
+                    : "bg-transparent rounded-none text-gray-400 hover:text-gray-500"
                 }`}
-                onClick={() => handleTabChange("tab2")}
+                onClick={() => handleTabChange("MyScene")}
               >
-                Tab 2
+                <FaFilm />
+                <h2>MyScene</h2>
               </button>
             </div>
 
             {/* Tab Content */}
             <div>
-              {activeTab === "tab1" && (
+              {activeTab === "DevScreen" && (
                 <div className="p-4">
-                  <div>subtitle</div>
+                  <div className="pb-6 flex flex-row gap-2 justify-center">
+                    <h3 className="text-black text-[1rem]">
+                      My perfect cheat sheet and storage use
+                    </h3>
+                    <Link
+                      href="/blogs"
+                      className="text-[#000000] hover:text-[#000000] text-[1rem] underline"
+                    >
+                      Show All Archievs
+                    </Link>
+                  </div>
                   <Swiper
                     slidesPerView={1}
                     breakpoints={{
@@ -153,23 +165,28 @@ const Perspective = () => {
                     pagination={{
                       clickable: true,
                     }}
-                    className="h-[350px]"
+                    className="h-[300px]"
                   >
                     {devScreenData.map((devScreen, index) => {
                       return (
                         <SwiperSlide key={index}>
-                          <div>
-                            <div className="shine-eff"></div>
-                            <div>
-                              <h2>{devScreen.title}</h2>
-                            </div>
-                            <Image
-                              src={devScreen.image}
-                              alt={devScreen.title}
-                              layout="fill"
-                              objectFit="cover"
-                              className="transition-all duration-500"
-                            />
+                          <div className="relative border-2 w-full h-full border-black rounded-md overflow-hidden">
+                            <Link href={devScreen.url}>
+                              <div className="absolute w-full h-full flex flex-col justify-center items-center">
+                                <h2 className="text-white text-stroke font-bold text-[1.5rem]">
+                                  {devScreen.title}
+                                </h2>
+                                <h3 className="text-white text-stroke font-bold text-[1rem]">
+                                  {devScreen.subtitle}
+                                </h3>
+                              </div>
+                              <Image
+                                src={devScreen.image}
+                                alt={devScreen.title}
+                                layout="fill"
+                                className="absolute bottom-0 w-full h-full object-cover shadow-2xl grayscale hover:grayscale-0 transition-all duration-500"
+                              />
+                            </Link>
                           </div>
                         </SwiperSlide>
                       );
@@ -177,42 +194,43 @@ const Perspective = () => {
                   </Swiper>
                 </div>
               )}
-              {activeTab === "tab2" && (
+              {activeTab === "MyScene" && (
                 <div className="p-4">
-                  <div>subtitle</div>
-                  <div className="border-t-[1px] border-black">
+                  <div className="pb-6 flex flex-row gap-2 justify-center">
+                    <h3 className="text-black text-[1rem]">
+                      <span className="font-bold">Portraits</span>: The day of
+                      my youth
+                    </h3>
+                  </div>
+                  <div className="border-t-[1px] text-black border-black">
                     {mySceneData.map((myScene, index) => (
                       <div
                         key={index}
-                        className="relative border-b-[1px] border-black group"
+                        className="relative w-full h-full border-b-[1px] border-black group"
                       >
-                        <div className="hover-effect">
-                          <Link
-                            href={myScene.url}
-                            className="relative flex flex-row justify-between items-center overflow-hidden"
-                          >
-                            <div className="absolute w-full h-full bg-black -translate-x-[100%] group-hover:-translate-x-[0%] transition-all duration-500"></div>
-                            <div className="flex flex-col z-10 pl-4">
-                              <h1 className="font-bold text-[2.25rem] leading-0 text-black group-hover:text-white transition-colors duration-500">
-                                {myScene.title}
-                              </h1>
-                              <h2 className="text-[1.25rem] text-black leading-0 group-hover:text-white transition-colors duration-500">
-                                {myScene.subtitle}
-                              </h2>
-                            </div>
-                            <div className="z-10 pr-4">
-                              <h3 className="text-[1em] text-black group-hover:text-white transition-colors duration-500">
-                                {myScene.date}
-                              </h3>
-                            </div>
-                          </Link>
-                        </div>
-                        <div className="absolute top-0 left-0 w-[200px] h-[150px] opacity-0 group-hover:opacity-100 border-2 border-black rounded-sm overflow-hidden">
+                        <Link
+                          href={myScene.url}
+                          className="relative flex flex-row justify-between items-center overflow-hidden"
+                        >
+                          <div className="absolute w-full h-full bg-black -translate-x-[100%] group-hover:-translate-x-[0%] transition-all duration-500"></div>
+                          <div className="flex flex-col group-hover:z-10 pl-4">
+                            <h1 className="font-bold z-10 text-[2.25rem] leading-0 text-black group-hover:text-white transition-colors duration-500">
+                              {myScene.title}
+                            </h1>
+                            <h2 className="text-[1.25rem] group-hover:z-10 text-black leading-0 group-hover:text-white transition-colors duration-500">
+                              {myScene.subtitle}
+                            </h2>
+                          </div>
+                          <div className="z-10 pr-4">
+                            <h3 className="text-[1em] group-hover:z-10 text-black group-hover:text-white transition-colors duration-500">
+                              {myScene.date}
+                            </h3>
+                          </div>
+                        </Link>
+                        <div className="absolute pointer-events-none top-[-30px] right-0 left-0 m-auto w-[200px] h-[150px] border-2 border-black rounded-sm opacity-0 group-hover:opacity-100 overflow-hidden transition-all duration-1000">
                           <Image
                             src={myScene.image}
                             alt={myScene.title}
-                            objectFit="cover"
-                            className="w-full h-full transition-all duration-500"
                             width={200}
                             height={150}
                           />

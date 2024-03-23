@@ -20,7 +20,7 @@
 .eyeball {
   position: absolute;
   top: 50%;
-  left: 25%;
+  left: 22.5%;
   width: 60px;
   height: 60px;
   background-color: black;
@@ -81,4 +81,7 @@
 .eye:hover .eyeball {
   background: #d21f3c;
   transition: 1s;
+  width: 50px;
+  height: 50px;
+  left: 27.5%;
 }

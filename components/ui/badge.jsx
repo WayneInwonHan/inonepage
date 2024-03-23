@@ -31,10 +31,24 @@ function Badge({ className, children, ...props }) {
   // Determine the variant based on the children (text content)
   let variant = "default"; // Default variant
   const content = React.Children.toArray(children).join("");
-  if (content.toLowerCase() === "react js") {
+  if (content.toLowerCase() === "youtube") {
+    variant = "youtube";
+  } else if (content.toLowerCase() === "note") {
+    variant = "note";
+  } else if (content.toLowerCase() === "cheatsheet") {
+    variant = "cheatsheet";
+  } else if (content.toLowerCase() === "ruby") {
+    variant = "ruby";
+  } else if (content.toLowerCase() === "react js") {
     variant = "reactjs";
-  } else if (content.toLowerCase() === "abc") {
-    variant = "abc";
+  } else if (content.toLowerCase() === "python") {
+    variant = "python";
+  } else if (content.toLowerCase() === "react native") {
+    variant = "react native";
+  } else if (content.toLowerCase() === "ruby") {
+    variant = "ruby";
+  } else if (content.toLowerCase() === "ruby") {
+    variant = "ruby";
   } else if (content.toLowerCase() === "ruby") {
     variant = "ruby";
   }
