@@ -45,7 +45,7 @@ const Projects = () => {
           </div>
           <div className="page-window-content p-5 overflow-scroll">
             <div className="container mx-auto">
-              <h2 className="section-title mb-8 xl:mb-16 text-center mx-auto">
+              <h2 className="mb-6 xl:mb-8 text-center mx-auto font-bold text-[2rem]">
                 My Projects
               </h2>
               {/* tabs */}
