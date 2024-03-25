@@ -39,7 +39,7 @@ const ProjectCard = ({ project }) => {
             {project.youtube && (
               <Link
                 href={project.youtube}
-                className="bg-[##FF0000] w-[54px] h-[54px] rounded-full flex justify-center items-center scale-0 opacity-0 group-hover:scale-100 group-hover:opacity-100 transition-all duration-300"
+                className="bg-[#FF0000] w-[54px] h-[54px] rounded-full flex justify-center items-center scale-0 opacity-0 group-hover:scale-100 group-hover:opacity-100 transition-all duration-300"
               >
                 <FaYoutube className="text-white text-[2rem]" />
               </Link>
